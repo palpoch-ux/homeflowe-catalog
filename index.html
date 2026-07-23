@@ -1305,6 +1305,13 @@
         ].filter(Boolean).join('\n');
         els.requestSubmit.disabled = true;
         els.requestStatus.textContent = 'Отправляем заявку…';
+        if (location.protocol === 'file:') {
+          const subject = 'Заявка из каталога бытовой техники HomeFlowe';
+          location.href = `mailto:info@HomeFlowe.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(els.requestContent.value)}`;
+          els.requestSubmit.disabled = false;
+          els.requestStatus.textContent = 'Открылось готовое письмо. Нажмите «Отправить» в почтовой программе; корзина сохранена.';
+          return;
+        }
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 20000);
         try {
