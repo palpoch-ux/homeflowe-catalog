@@ -782,13 +782,14 @@
         </div>
         <div class="request-field full">
           <label for="requestEmail">Электронная почта</label>
-          <input id="requestEmail" name="from" type="email" autocomplete="email">
+          <input id="requestEmail" type="email" autocomplete="email">
         </div>
         <div class="request-field full">
           <label for="requestComment">Комментарий</label>
           <textarea id="requestComment" placeholder="Например, удобное время для звонка"></textarea>
         </div>
         <input type="hidden" name="subject" value="Заявка из каталога бытовой техники HomeFlowe">
+        <input type="hidden" name="from" value="info@HomeFlowe.ru">
         <textarea name="content" id="requestContent" hidden></textarea>
         <label class="request-agree">
           <input type="checkbox" name="agree" value="1" required>
@@ -973,6 +974,9 @@
         }
       }
 
+      const categories = [...new Set(products.map(product => product.category).filter(Boolean))].sort(collator.compare);
+      const vendors = [...new Set(products.map(product => product.vendor).filter(Boolean))].sort(collator.compare);
+
       function optionList(select, values) {
         const fragment = document.createDocumentFragment();
         values.forEach(value => {
@@ -984,8 +988,50 @@
         select.appendChild(fragment);
       }
 
-      optionList(els.category, [...new Set(products.map(p => p.category).filter(Boolean))].sort(collator.compare));
-      optionList(els.vendor, [...new Set(products.map(p => p.vendor).filter(Boolean))].sort(collator.compare));
+      function replaceOptions(select, values, selectedValue) {
+        const placeholder = select.options[0].cloneNode(true);
+        select.replaceChildren(placeholder);
+        optionList(select, values);
+        select.value = values.includes(selectedValue) ? selectedValue : '';
+      }
+
+      function updateDependentFilters(changed) {
+        let category = els.category.value;
+        let vendor = els.vendor.value;
+
+        if (changed === 'vendor') {
+          const availableCategories = [...new Set(products
+            .filter(product => !vendor || product.vendor === vendor)
+            .map(product => product.category)
+            .filter(Boolean))].sort(collator.compare);
+          if (category && !availableCategories.includes(category)) category = '';
+          replaceOptions(els.category, availableCategories, category);
+
+          const availableVendors = [...new Set(products
+            .filter(product => !category || product.category === category)
+            .map(product => product.vendor)
+            .filter(Boolean))].sort(collator.compare);
+          replaceOptions(els.vendor, availableVendors, vendor);
+        } else if (changed === 'category') {
+          const availableVendors = [...new Set(products
+            .filter(product => !category || product.category === category)
+            .map(product => product.vendor)
+            .filter(Boolean))].sort(collator.compare);
+          if (vendor && !availableVendors.includes(vendor)) vendor = '';
+          replaceOptions(els.vendor, availableVendors, vendor);
+
+          const availableCategories = [...new Set(products
+            .filter(product => !vendor || product.vendor === vendor)
+            .map(product => product.category)
+            .filter(Boolean))].sort(collator.compare);
+          replaceOptions(els.category, availableCategories, category);
+        } else {
+          replaceOptions(els.category, categories, '');
+          replaceOptions(els.vendor, vendors, '');
+        }
+      }
+
+      updateDependentFilters();
       els.totalHero.textContent = rubles.format(products.length);
       if (data.updated) {
         const parsed = new Date(data.updated.replace(' ', 'T'));
@@ -1200,14 +1246,25 @@
         els.search.value = '';
         els.category.value = '';
         els.vendor.value = '';
+        updateDependentFilters();
         els.sort.value = 'name';
         currentPage = 1;
         render();
       }
-      [els.category, els.vendor, els.sort].forEach(control => control.addEventListener('change', () => {
+      els.category.addEventListener('change', () => {
+        updateDependentFilters('category');
         currentPage = 1;
         render();
-      }));
+      });
+      els.vendor.addEventListener('change', () => {
+        updateDependentFilters('vendor');
+        currentPage = 1;
+        render();
+      });
+      els.sort.addEventListener('change', () => {
+        currentPage = 1;
+        render();
+      });
       els.clear.addEventListener('click', resetFilters);
       els.dialogClose.addEventListener('click', () => els.dialog.close());
       els.dialog.addEventListener('click', event => { if (event.target === els.dialog) els.dialog.close(); });
@@ -1223,6 +1280,8 @@
       els.requestDialog.addEventListener('click', event => {
         if (event.target === els.requestDialog) els.requestDialog.close();
       });
+      let requestSubmitting = false;
+      let requestSubmitTimer;
       els.requestForm.addEventListener('submit', event => {
         if (!requestItems.length) {
           event.preventDefault();
@@ -1235,24 +1294,37 @@
         });
         const total = requestItems.reduce((sum, item) => sum + productsById.get(item.id).price * item.quantity, 0);
         const comment = els.requestComment.value.trim();
+        const customerEmail = document.getElementById('requestEmail').value.trim();
         els.requestContent.value = [
           'Заявка из электронного каталога бытовой техники HomeFlowe',
           '',
           ...lines,
           '',
           `Предварительная стоимость: ${rubles.format(total)} ₽`,
+          customerEmail ? `Электронная почта клиента: ${customerEmail}` : '',
           comment ? `Комментарий клиента: ${comment}` : '',
           `Страница: ${location.href}`
         ].filter(Boolean).join('\n');
         els.requestSubmit.disabled = true;
         els.requestStatus.textContent = 'Отправляем заявку…';
-        setTimeout(() => {
-          els.requestStatus.textContent = 'Заявка отправлена. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
-          els.requestForm.reset();
-          requestItems = [];
-          saveRequest();
-          render();
-        }, 1200);
+        requestSubmitting = true;
+        clearTimeout(requestSubmitTimer);
+        requestSubmitTimer = setTimeout(() => {
+          if (!requestSubmitting) return;
+          requestSubmitting = false;
+          els.requestSubmit.disabled = false;
+          els.requestStatus.textContent = 'Не удалось подтвердить отправку. Проверьте интернет и повторите попытку.';
+        }, 20000);
+      });
+      els.requestSubmitFrame.addEventListener('load', () => {
+        if (!requestSubmitting) return;
+        requestSubmitting = false;
+        clearTimeout(requestSubmitTimer);
+        els.requestStatus.textContent = 'Заявка принята системой InSales. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
+        els.requestForm.reset();
+        requestItems = [];
+        saveRequest();
+        render();
       });
       function closeImageViewer() {
         els.imageViewer.close();
