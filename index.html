@@ -771,7 +771,7 @@
         <strong id="requestTotal">0 ₽</strong>
       </div>
       <p class="request-note">Менеджер подтвердит актуальное наличие и стоимость, после чего направит счёт для оплаты.</p>
-      <form class="request-form" id="requestForm" method="post" action="https://homeflowe.ru/client_account/feedback" target="requestSubmitFrame">
+      <form class="request-form" id="requestForm" method="post" action="https://formsubmit.co/info@HomeFlowe.ru">
         <div class="request-field">
           <label for="requestName">Имя *</label>
           <input id="requestName" name="name" autocomplete="name" required>
@@ -788,9 +788,10 @@
           <label for="requestComment">Комментарий</label>
           <textarea id="requestComment" placeholder="Например, удобное время для звонка"></textarea>
         </div>
-        <input type="hidden" name="subject" value="Заявка из каталога бытовой техники HomeFlowe">
-        <input type="hidden" name="from" value="info@HomeFlowe.ru">
-        <textarea name="content" id="requestContent" hidden></textarea>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
+        <input type="hidden" name="_subject" value="Заявка из каталога бытовой техники HomeFlowe">
+        <input type="hidden" name="_template" value="table">
+        <textarea name="message" id="requestContent" hidden></textarea>
         <label class="request-agree">
           <input type="checkbox" name="agree" value="1" required>
           <span>Согласен на обработку персональных данных для связи по заявке.</span>
@@ -798,7 +799,6 @@
         <button class="request-submit" id="requestSubmit" type="submit">Отправить заявку</button>
         <div class="request-status" id="requestStatus" role="status" aria-live="polite"></div>
       </form>
-      <iframe name="requestSubmitFrame" id="requestSubmitFrame" title="Отправка заявки" hidden></iframe>
     </div>
   </dialog>
 
@@ -856,7 +856,7 @@
         requestClose: $('requestClose'), requestItems: $('requestItems'), requestEmpty: $('requestEmpty'),
         requestSummary: $('requestSummary'), requestTotal: $('requestTotal'), requestForm: $('requestForm'),
         requestComment: $('requestComment'), requestContent: $('requestContent'), requestSubmit: $('requestSubmit'),
-        requestStatus: $('requestStatus'), requestSubmitFrame: $('requestSubmitFrame'),
+        requestStatus: $('requestStatus'),
         dialogRequestAdd: $('dialogRequestAdd'), dialogProductLink: $('dialogProductLink')
       };
       const rubles = new Intl.NumberFormat('ru-RU');
@@ -1280,11 +1280,9 @@
       els.requestDialog.addEventListener('click', event => {
         if (event.target === els.requestDialog) els.requestDialog.close();
       });
-      let requestSubmitting = false;
-      let requestSubmitTimer;
-      els.requestForm.addEventListener('submit', event => {
+      els.requestForm.addEventListener('submit', async event => {
+        event.preventDefault();
         if (!requestItems.length) {
-          event.preventDefault();
           els.requestStatus.textContent = 'Сначала добавьте хотя бы один товар.';
           return;
         }
@@ -1307,24 +1305,38 @@
         ].filter(Boolean).join('\n');
         els.requestSubmit.disabled = true;
         els.requestStatus.textContent = 'Отправляем заявку…';
-        requestSubmitting = true;
-        clearTimeout(requestSubmitTimer);
-        requestSubmitTimer = setTimeout(() => {
-          if (!requestSubmitting) return;
-          requestSubmitting = false;
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 20000);
+        try {
+          const response = await fetch('https://formsubmit.co/ajax/info@HomeFlowe.ru', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              name: document.getElementById('requestName').value.trim(),
+              phone: document.getElementById('requestPhone').value.trim(),
+              email: customerEmail,
+              message: els.requestContent.value,
+              _subject: 'Заявка из каталога бытовой техники HomeFlowe',
+              _template: 'table',
+              _honey: els.requestForm.elements._honey.value
+            }),
+            signal: controller.signal
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || (result.success !== true && result.success !== 'true')) {
+            throw new Error(result.message || `HTTP ${response.status}`);
+          }
+          els.requestStatus.textContent = 'Заявка отправлена. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
+          els.requestForm.reset();
+          requestItems = [];
+          saveRequest();
+          render();
+        } catch (error) {
           els.requestSubmit.disabled = false;
           els.requestStatus.textContent = 'Не удалось подтвердить отправку. Проверьте интернет и повторите попытку.';
-        }, 20000);
-      });
-      els.requestSubmitFrame.addEventListener('load', () => {
-        if (!requestSubmitting) return;
-        requestSubmitting = false;
-        clearTimeout(requestSubmitTimer);
-        els.requestStatus.textContent = 'Заявка принята системой InSales. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
-        els.requestForm.reset();
-        requestItems = [];
-        saveRequest();
-        render();
+        } finally {
+          clearTimeout(timeout);
+        }
       });
       function closeImageViewer() {
         els.imageViewer.close();
