@@ -1,0 +1,38 @@
+name: Update prices and stock
+
+on:
+  schedule:
+    - cron: "7,37 3-20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-live
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download catalog
+        uses: actions/checkout@v4
+
+      - name: Refresh live data
+        env:
+          HOMEFLOWE_FEED_URL: ${{ secrets.HOMEFLOWE_FEED_URL }}
+          HOMEFLOWE_FEED_TOKEN: ${{ secrets.HOMEFLOWE_FEED_TOKEN }}
+        run: python .github/scripts/update_live.py
+
+      - name: Publish changes
+        run: |
+          if git diff --quiet -- catalog-live.js; then
+            echo "Prices and stock have not changed"
+            exit 0
+          fi
+          git config user.name "HomeFlowe Catalog Updater"
+          git config user.email "actions@users.noreply.github.com"
+          git add catalog-live.js
+          git commit -m "Update prices and stock"
+          git push
