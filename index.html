@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Электронный каталог бытовой техники HomeFlowe с розничными ценами">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="images/icon-192.png">
+  <title>Бытовая техника — HomeFlowe</title>
+  <style>
+    :root {
+      --ink: #17201c;
+      --muted: #68736d;
+      --line: #dde3df;
+      --paper: #f5f6f2;
+      --white: #ffffff;
+      --green: #183f32;
+      --green-2: #2e6451;
+      --sand: #d9c3a1;
+      --shadow: 0 18px 50px rgba(22, 38, 30, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      background: rgba(24,63,50,.96);
+      color: #fff;
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      min-height: 76px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: Georgia, serif;
+      font-size: 19px;
+      font-weight: 400;
+    }
+    .top-links { display: flex; align-items: center; gap: 26px; font-size: 14px; }
+    .top-links a { color: rgba(255,255,255,.82); text-decoration: none; }
+    .top-links a:hover { color: #fff; }
+    .request-nav {
+      min-height: 40px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 999px;
+      color: #fff;
+      background: transparent;
+      cursor: pointer;
+    }
+    .request-count {
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .install-btn {
+      display: none;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 8px;
+      color: #fff;
+      background: transparent;
+      cursor: pointer;
+    }
+    .hero {
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(217,195,161,.17), transparent 28%),
+        linear-gradient(135deg, #183f32 0%, #214d3d 58%, #2a5948 100%);
+    }
+    .hero-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 72px 32px 82px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      align-items: end;
+      gap: 64px;
+    }
+    .eyebrow {
+      margin-bottom: 18px;
+      color: var(--sand);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 6.2vw, 86px);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero-note {
+      margin: 27px 0 0;
+      max-width: 620px;
+      color: rgba(255,255,255,.72);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+    .hero-stat {
+      padding: 26px 0 5px 28px;
+      border-left: 1px solid rgba(255,255,255,.25);
+    }
+    .hero-stat strong { display: block; font-family: Georgia, serif; font-size: 54px; font-weight: 400; line-height: 1; }
+    .hero-stat span { display: block; margin-top: 10px; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.45; }
+    main { max-width: 1440px; margin: 0 auto; padding: 34px 32px 90px; }
+    .controls {
+      position: sticky;
+      z-index: 10;
+      top: 76px;
+      margin: -64px 0 34px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(250px, 1.7fr) minmax(180px, 1fr) minmax(180px, 1fr) minmax(160px, .8fr);
+      gap: 12px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(23,32,28,.08);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .mobile-filter-head, .mobile-filter-toggle, .filter-backdrop { display: none; }
+    .field { position: relative; }
+    .field label {
+      position: absolute;
+      z-index: 1;
+      top: 8px;
+      left: 14px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .field input, .field select {
+      width: 100%;
+      height: 58px;
+      padding: 22px 42px 7px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+      color: var(--ink);
+      background: #fff;
+      appearance: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(46,100,81,.1); }
+    .field::after { content: "⌄"; position: absolute; right: 15px; bottom: 16px; color: var(--muted); pointer-events: none; }
+    .field.search::after { content: "⌕"; bottom: 14px; font-size: 21px; }
+    .result-row { margin: 0 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .result-count { color: var(--muted); font-size: 14px; }
+    .result-count strong { color: var(--ink); font-weight: 650; }
+    .result-actions { display: flex; align-items: center; gap: 18px; }
+    .clear {
+      padding: 8px 0;
+      border: 0;
+      color: var(--green-2);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 650;
+    }
+    .clear:hover { text-decoration: underline; }
+    .print-btn {
+      padding: 10px 15px;
+      border: 1px solid var(--green);
+      border-radius: 9px;
+      color: #fff;
+      background: var(--green);
+      cursor: pointer;
+      font-weight: 650;
+    }
+    .print-btn:hover { background: var(--green-2); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(22,38,30,.1); outline: none; }
+    .photo {
+      aspect-ratio: 1.12 / 1;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: #f8f8f5;
+      border-bottom: 1px solid #edf0ed;
+    }
+    .photo img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .photo.no-image::after { content: "HomeFlowe"; color: #b0b8b3; font-family: Georgia, serif; font-size: 22px; }
+    .card-body { min-height: 206px; padding: 19px 20px 21px; display: flex; flex: 1; flex-direction: column; }
+    .meta { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .product-name {
+      height: 66px;
+      margin: 10px 0 24px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.38;
+      overflow-wrap: anywhere;
+    }
+    .stock { margin: -12px 0 16px; color: var(--green-2); font-size: 12px; font-weight: 700; }
+    .stock.out { color: #9a4c42; }
+    .card-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price { font-size: 22px; font-weight: 750; letter-spacing: -.025em; white-space: nowrap; }
+    .request-add {
+      min-height: 40px;
+      padding: 0 15px;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      color: #fff;
+      background: var(--green);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .request-add:hover { background: var(--green-2); }
+    .request-add.added { color: var(--green); background: #fff; }
+    .empty { display: none; padding: 70px 20px; text-align: center; color: var(--muted); }
+    .empty strong { display: block; margin-bottom: 8px; color: var(--ink); font-family: Georgia, serif; font-size: 30px; font-weight: 400; }
+    .pagination { margin-top: 36px; display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .page-btn {
+      min-width: 42px;
+      height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--ink);
+      background: #fff;
+      cursor: pointer;
+    }
+    .page-btn:hover, .page-btn.active { border-color: var(--green); color: #fff; background: var(--green); }
+    .page-btn:disabled { opacity: .35; cursor: default; }
+    footer { color: rgba(255,255,255,.76); background: #122d24; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; padding: 58px 32px 34px; }
+    .footer-head { display: grid; grid-template-columns: 1fr 2fr; gap: 70px; padding-bottom: 42px; }
+    .footer-brand { color: #fff; font-family: Georgia, serif; font-size: 34px; }
+    .footer-brand span { display: block; margin-top: 10px; color: rgba(255,255,255,.56); font-family: Inter, sans-serif; font-size: 13px; line-height: 1.5; }
+    .requisites { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 40px; font-size: 13px; line-height: 1.7; }
+    .req-label { display: block; margin-bottom: 3px; color: var(--sand); font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); display: flex; justify-content: space-between; gap: 24px; font-size: 13px; }
+    .footer-bottom a { color: #fff; text-decoration: none; }
+    .print-sheet { display: none; }
+    .product-dialog {
+      width: min(900px, calc(100vw - 28px));
+      max-height: calc(100vh - 28px);
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      border-radius: 18px;
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 30px 90px rgba(0,0,0,.3);
+    }
+    .product-dialog::backdrop { background: rgba(10,23,18,.7); backdrop-filter: blur(4px); }
+    .dialog-close {
+      position: absolute;
+      z-index: 2;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: rgba(255,255,255,.94);
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .dialog-content { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 520px; }
+    .dialog-photo { position: relative; min-width: 0; min-height: 460px; padding: 42px; display: grid; place-items: center; overflow: hidden; background: #f7f8f5; }
+    .dialog-photo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 500px; object-fit: contain; cursor: zoom-in; }
+    .dialog-info { padding: 70px 42px 42px; display: flex; flex-direction: column; }
+    .dialog-category { color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .dialog-title { margin: 18px 0 12px; font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.15; }
+    .dialog-vendor { color: var(--muted); font-size: 14px; }
+    .dialog-stock { margin-top: 18px; color: var(--green-2); font-size: 14px; font-weight: 700; }
+    .dialog-stock.out { color: #9a4c42; }
+    .details-toggle {
+      align-self: flex-start;
+      margin: 0;
+      padding: 11px 17px;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .details-toggle:hover, .details-toggle[aria-expanded="true"] { color: #fff; background: var(--green); }
+    .dialog-actions { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .dialog-request-add { margin-top: 18px; width: 100%; min-height: 48px; font-size: 14px; }
+    .dialog-product-link { margin-top: 13px; align-self: center; color: var(--green-2); font-size: 12px; text-underline-offset: 3px; }
+    .details-close {
+      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: #fff;
+      cursor: pointer;
+      font-size: 25px;
+      line-height: 1;
+    }
+    .details-viewer {
+      width: 100vw;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      color: var(--ink);
+      background: #f6f7f4;
+    }
+    .details-viewer[open] { display: flex; flex-direction: column; }
+    .details-viewer::backdrop { background: rgba(9, 20, 16, .78); }
+    .details-viewer-head {
+      flex: 0 0 auto;
+      min-height: 94px;
+      padding: 18px max(28px, calc((100vw - 1100px) / 2));
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 5px 22px rgba(16, 40, 31, .07);
+    }
+    .details-viewer-heading { min-width: 0; }
+    .details-viewer-heading span { display: block; color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
+    .details-viewer-heading strong { display: block; margin-top: 6px; overflow: hidden; font-family: Georgia, serif; font-size: 25px; font-weight: 400; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
+    .details-viewer-price { margin-left: auto; font-size: 28px; font-weight: 750; white-space: nowrap; }
+    .details-viewer-body { width: min(100%, 1100px); margin: 0 auto; padding: 34px 30px 56px; overflow: auto; }
+    .dialog-description { padding: 0 0 28px; color: var(--ink); font-size: 17px; line-height: 1.75; white-space: pre-line; }
+    .dialog-description:empty { display: none; }
+    .details-list { margin: 0; }
+    .details-row { display: grid; grid-template-columns: minmax(220px, .75fr) 1.25fr; gap: 34px; padding: 17px 2px; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.55; }
+    .details-row dt { color: var(--muted); }
+    .details-row dd { margin: 0; color: var(--ink); font-weight: 650; overflow-wrap: anywhere; }
+    .dialog-price { margin-left: auto; font-size: 30px; font-weight: 750; line-height: 1; text-align: right; white-space: nowrap; }
+    .image-viewer {
+      width: 100vw;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 24px;
+      overflow: hidden;
+      border: 0;
+      background: rgba(9, 20, 16, .94);
+    }
+    .image-viewer[open] { display: grid; place-items: center; }
+    .image-viewer::backdrop { background: rgba(9, 20, 16, .94); }
+    .image-viewer img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-out; }
+    .image-viewer-close { position: fixed; z-index: 2; top: 18px; right: 18px; width: 46px; height: 46px; border: 0; border-radius: 50%; color: #10251e; background: #fff; cursor: pointer; font-size: 26px; }
+    .request-dialog {
+      width: min(760px, calc(100vw - 28px));
+      max-height: calc(100dvh - 28px);
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      border-radius: 18px;
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 30px 90px rgba(0,0,0,.3);
+    }
+    .request-dialog::backdrop { background: rgba(10,23,18,.72); backdrop-filter: blur(4px); }
+    .request-dialog-head {
+      position: sticky;
+      z-index: 3;
+      top: 0;
+      padding: 24px 76px 20px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.97);
+    }
+    .request-dialog-head span { color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
+    .request-dialog-head h2 { margin: 5px 0 0; font-family: Georgia, serif; font-size: 30px; font-weight: 400; }
+    .request-dialog-head .dialog-close { top: 14px; right: 14px; }
+    .request-body { padding: 26px 28px 32px; }
+    .request-empty { padding: 28px 10px; color: var(--muted); text-align: center; }
+    .request-items { display: grid; gap: 12px; }
+    .request-item {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .request-item-photo { width: 72px; height: 72px; display: grid; place-items: center; overflow: hidden; border-radius: 8px; background: #f7f8f5; }
+    .request-item-photo img { width: 100%; height: 100%; object-fit: contain; }
+    .request-item-name { font-weight: 700; line-height: 1.35; }
+    .request-item-meta { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .request-item-controls { margin-top: 10px; display: flex; align-items: center; gap: 8px; }
+    .request-qty {
+      width: 72px;
+      height: 38px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .request-remove { padding: 6px; border: 0; color: #8b423a; background: transparent; cursor: pointer; font-size: 12px; }
+    .request-item-price { font-weight: 750; white-space: nowrap; }
+    .request-summary { margin: 22px 0; padding: 18px 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .request-summary span { color: var(--muted); font-size: 13px; }
+    .request-summary strong { font-size: 25px; }
+    .request-note { margin: -8px 0 22px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .request-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .request-field { display: grid; gap: 7px; }
+    .request-field.full { grid-column: 1 / -1; }
+    .request-field label { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .request-field input, .request-field textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+      color: var(--ink);
+      background: #fff;
+    }
+    .request-field input:focus, .request-field textarea:focus { border-color: var(--green-2); box-shadow: 0 0 0 3px rgba(46,100,81,.1); }
+    .request-field textarea { min-height: 92px; resize: vertical; }
+    .request-agree { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 9px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .request-agree input { margin-top: 2px; }
+    .request-submit {
+      grid-column: 1 / -1;
+      min-height: 50px;
+      border: 0;
+      border-radius: 10px;
+      color: #fff;
+      background: var(--green);
+      cursor: pointer;
+      font-weight: 750;
+    }
+    .request-submit:disabled { opacity: .55; cursor: wait; }
+    .request-status { grid-column: 1 / -1; min-height: 20px; color: var(--green-2); font-size: 13px; line-height: 1.5; }
+    @media print {
+      @page { size: A4 portrait; margin: 12mm 11mm 14mm; }
+      body { color: #111; background: #fff; font-family: Arial, sans-serif; }
+      .topbar, .hero, main, footer { display: none !important; }
+      .print-sheet { display: block; }
+      .print-title { margin: 0; font-family: Georgia, serif; font-size: 25pt; font-weight: 400; }
+      .print-subtitle { margin: 4mm 0 7mm; color: #555; font-size: 9pt; }
+      .print-table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+      .print-table th { padding: 2.5mm 2mm; border-bottom: 1.5px solid #183f32; text-align: left; font-size: 7pt; letter-spacing: .06em; text-transform: uppercase; }
+      .print-table td { padding: 2.4mm 2mm; border-bottom: 1px solid #ddd; vertical-align: top; }
+      .print-table th:first-child, .print-table td:first-child { width: 9mm; color: #666; }
+      .print-table th:nth-last-child(2), .print-table td:nth-last-child(2) { width: 24mm; white-space: nowrap; }
+      .print-table th:last-child, .print-table td:last-child { width: 32mm; text-align: right; white-space: nowrap; font-weight: 700; }
+      .print-product { font-weight: 700; }
+      .print-meta { margin-top: 1mm; color: #666; font-size: 7.5pt; }
+      .print-requisites { margin-top: 8mm; padding-top: 5mm; border-top: 1.5px solid #183f32; display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 8mm; font-size: 7.5pt; line-height: 1.45; break-inside: avoid; }
+      .print-requisites strong { color: #183f32; }
+      tr { break-inside: avoid; }
+    }
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      body.filters-open { overflow: hidden; }
+      .topbar-inner { min-height: 66px; padding: 0 18px; }
+      .top-links a:first-child { display: none; }
+      .top-links { gap: 8px; }
+      .request-nav { min-height: 38px; padding: 0 10px; }
+      .hero-inner { padding: 48px 18px 84px; grid-template-columns: 1fr; gap: 34px; }
+      .hero-stat { padding: 0; border: 0; display: flex; align-items: baseline; gap: 12px; }
+      .hero-stat strong { font-size: 38px; }
+      main { padding: 28px 14px 64px; }
+      .controls {
+        position: fixed;
+        z-index: 52;
+        inset: auto 12px 12px;
+        top: auto;
+        max-height: calc(100dvh - 24px);
+        margin: 0;
+        padding: 18px;
+        display: none;
+        grid-template-columns: 1fr;
+        overflow: auto;
+        border-radius: 20px;
+        box-shadow: 0 28px 80px rgba(0,0,0,.34);
+      }
+      .controls.open { display: grid; }
+      .mobile-filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+      .mobile-filter-head strong { font-family: Georgia, serif; font-size: 22px; font-weight: 400; }
+      .mobile-filter-close {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--ink);
+        background: #fff;
+        cursor: pointer;
+        font-size: 23px;
+        line-height: 1;
+      }
+      .filter-backdrop.open { position: fixed; z-index: 51; inset: 0; display: block; background: rgba(10,23,18,.56); backdrop-filter: blur(2px); }
+      .mobile-filter-toggle {
+        position: fixed;
+        z-index: 50;
+        right: 16px;
+        bottom: max(16px, env(safe-area-inset-bottom));
+        min-height: 52px;
+        padding: 0 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 999px;
+        color: #fff;
+        background: var(--green);
+        box-shadow: 0 12px 30px rgba(16,53,41,.34);
+        cursor: pointer;
+        font: inherit;
+        font-size: 14px;
+        font-weight: 750;
+      }
+      .mobile-filter-toggle[aria-expanded="true"] { opacity: 0; pointer-events: none; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .photo { padding: 12px; }
+      .card-body { min-height: 194px; padding: 14px; }
+      .product-name { font-size: 14px; }
+      .price { font-size: 18px; }
+      .card-footer { align-items: flex-end; }
+      .request-add { min-height: 38px; padding: 0 12px; }
+      .footer-inner { padding: 44px 18px 28px; }
+      .footer-head, .requisites { grid-template-columns: 1fr; gap: 26px; }
+      .footer-bottom { flex-direction: column; }
+      .dialog-content { grid-template-columns: 1fr; }
+      .dialog-photo { width: 100%; height: min(360px, 40dvh); min-height: 0; max-height: none; padding: 24px; }
+      .dialog-photo img { position: absolute; inset: 24px; width: calc(100% - 48px); height: calc(100% - 48px); max-width: none; max-height: none; object-fit: contain; }
+      .dialog-info { min-height: 260px; padding: 28px; }
+      .dialog-title { font-size: 26px; }
+      .dialog-actions { gap: 10px; }
+      .dialog-price { font-size: 24px; }
+      .details-viewer-head { min-height: 78px; padding: 12px 16px; gap: 12px; }
+      .details-viewer-heading strong { font-size: 19px; }
+      .details-viewer-price { font-size: 20px; }
+      .details-viewer-body { padding: 24px 18px 44px; }
+      .dialog-description { padding-bottom: 22px; font-size: 16px; line-height: 1.7; }
+      .details-row { grid-template-columns: 1fr; gap: 5px; padding: 14px 0; font-size: 15px; }
+      .request-dialog { width: 100vw; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; }
+      .request-dialog-head { padding: 18px 68px 16px 18px; }
+      .request-dialog-head h2 { font-size: 25px; }
+      .request-body { padding: 18px; }
+      .request-form { grid-template-columns: 1fr; }
+      .request-field.full, .request-agree, .request-submit, .request-status { grid-column: 1; }
+    }
+    @media (max-width: 430px) {
+      .brand { font-size: 20px; }
+      .top-links { gap: 10px; }
+      h1 { font-size: 43px; }
+      .grid { grid-template-columns: 1fr; }
+      .photo { aspect-ratio: 1.35 / 1; }
+      .card-footer { align-items: stretch; flex-direction: column; }
+      .request-add { width: 100%; }
+      .dialog-info { padding: 24px 20px; }
+      .details-toggle { padding: 10px 12px; font-size: 12px; }
+      .dialog-price { font-size: 20px; }
+      .request-item { grid-template-columns: 58px minmax(0, 1fr); }
+      .request-item-photo { width: 58px; height: 58px; }
+      .request-item-price { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">H</span>HomeFlowe</div>
+      <nav class="top-links" aria-label="Основная навигация">
+        <a href="#catalog">Каталог</a>
+        <a href="#requisites">Реквизиты</a>
+        <button class="request-nav" id="requestOpen" type="button">Корзина <span class="request-count" id="requestCount">0</span></button>
+        <button class="install-btn" id="install" type="button">Установить</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">HomeFlowe · Электронный каталог</div>
+        <h1>Бытовая техника для вашего дома</h1>
+        <p class="hero-note">Полный ассортимент техники с розничными ценами. Выберите категорию или найдите нужную модель.<br><span id="updated"></span></p>
+      </div>
+      <div class="hero-stat"><strong id="totalHero">—</strong><span>товаров<br>в каталоге</span></div>
+    </div>
+  </section>
+
+  <main id="catalog">
+    <section class="controls" id="catalogControls" aria-label="Фильтры каталога">
+      <div class="mobile-filter-head">
+        <strong>Поиск и фильтры</strong>
+        <button class="mobile-filter-close" id="filterClose" type="button" aria-label="Закрыть поиск и фильтры">×</button>
+      </div>
+      <div class="field search">
+        <label for="search">Поиск</label>
+        <input id="search" type="search" placeholder="Название, модель или бренд" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="category">Категория</label>
+        <select id="category"><option value="">Все категории</option></select>
+      </div>
+      <div class="field">
+        <label for="vendor">Бренд</label>
+        <select id="vendor"><option value="">Все бренды</option></select>
+      </div>
+      <div class="field">
+        <label for="sort">Сортировка</label>
+        <select id="sort">
+          <option value="name">По названию</option>
+          <option value="priceAsc">Сначала дешевле</option>
+          <option value="priceDesc">Сначала дороже</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="result-row">
+      <div class="result-count">Найдено: <strong id="resultCount">—</strong></div>
+      <div class="result-actions">
+        <button class="clear" id="clear" type="button">Сбросить фильтры</button>
+        <button class="print-btn" id="print" type="button">Сохранить в PDF</button>
+      </div>
+    </div>
+    <section class="grid" id="grid" aria-live="polite"></section>
+    <div class="empty" id="empty"><strong>Ничего не найдено</strong>Попробуйте изменить запрос или выбрать другую категорию.</div>
+    <nav class="pagination" id="pagination" aria-label="Страницы каталога"></nav>
+  </main>
+
+  <div class="filter-backdrop" id="filterBackdrop"></div>
+  <button class="mobile-filter-toggle" id="filterToggle" type="button" aria-controls="catalogControls" aria-expanded="false">Поиск и фильтры</button>
+
+  <footer id="requisites">
+    <div class="footer-inner">
+      <div class="footer-head">
+        <div class="footer-brand">HomeFlowe<span>Интерьерные решения<br>и бытовая техника</span></div>
+        <div class="requisites">
+          <div><span class="req-label">Индивидуальный предприниматель</span>Гордеева Ольга Сергеевна</div>
+          <div><span class="req-label">ИНН · ОГРНИП</span>771376655317 · 325774600763441</div>
+          <div><span class="req-label">Адрес</span>127411, Россия, г. Москва, Карельский бульвар, д. 24, кв. 62</div>
+          <div><span class="req-label">Расчётный счёт</span>40802810338720045024 · ПАО Сбербанк</div>
+          <div><span class="req-label">БИК · Корреспондентский счёт</span>044525225 · 30101810400000000225</div>
+          <div><span class="req-label">Контакты</span><a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© HomeFlowe, 2026</span><a href="https://homeflowe.ru/">homeflowe.ru</a></div>
+    </div>
+  </footer>
+
+  <dialog class="product-dialog" id="productDialog" aria-labelledby="dialogTitle">
+    <button class="dialog-close" id="dialogClose" type="button" aria-label="Закрыть">×</button>
+    <div class="dialog-content">
+      <div class="dialog-photo" id="dialogPhoto"></div>
+      <div class="dialog-info">
+        <div class="dialog-category" id="dialogCategory"></div>
+        <h2 class="dialog-title" id="dialogTitle"></h2>
+        <div class="dialog-vendor" id="dialogVendor"></div>
+        <div class="dialog-stock" id="dialogStock"></div>
+        <div class="dialog-actions">
+          <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false">Характеристики</button>
+          <div class="dialog-price" id="dialogPrice"></div>
+        </div>
+        <button class="request-add dialog-request-add" id="dialogRequestAdd" type="button">Добавить в корзину</button>
+        <a class="dialog-product-link" id="dialogProductLink" href="#">Открыть отдельную страницу товара</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="details-viewer" id="dialogDetails" aria-labelledby="detailsViewerTitle">
+    <div class="details-viewer-head">
+      <div class="details-viewer-heading">
+        <span>Характеристики товара</span>
+        <strong id="detailsViewerTitle"></strong>
+      </div>
+      <div class="details-viewer-price" id="detailsViewerPrice"></div>
+      <button class="details-close" id="detailsClose" type="button" aria-label="Закрыть характеристики">×</button>
+    </div>
+    <div class="details-viewer-body">
+      <div class="dialog-description" id="dialogDescription"></div>
+      <dl class="details-list" id="detailsList"></dl>
+    </div>
+  </dialog>
+
+  <dialog class="image-viewer" id="imageViewer" aria-label="Увеличенная фотография товара">
+    <button class="image-viewer-close" id="imageViewerClose" type="button" aria-label="Закрыть фотографию">×</button>
+    <img id="imageViewerPhoto" alt="">
+  </dialog>
+
+  <dialog class="request-dialog" id="requestDialog" aria-labelledby="requestTitle">
+    <div class="request-dialog-head">
+      <span>Выбранные товары HomeFlowe</span>
+      <h2 id="requestTitle">Корзина</h2>
+      <button class="dialog-close" id="requestClose" type="button" aria-label="Закрыть корзину">×</button>
+    </div>
+    <div class="request-body">
+      <div class="request-empty" id="requestEmpty">Добавьте нужные товары в корзину.</div>
+      <div class="request-items" id="requestItems"></div>
+      <div class="request-summary" id="requestSummary">
+        <span>Предварительная стоимость</span>
+        <strong id="requestTotal">0 ₽</strong>
+      </div>
+      <p class="request-note">Менеджер подтвердит актуальное наличие и стоимость, после чего направит счёт для оплаты.</p>
+      <form class="request-form" id="requestForm" method="post" action="https://homeflowe.ru/client_account/feedback" target="requestSubmitFrame">
+        <div class="request-field">
+          <label for="requestName">Имя *</label>
+          <input id="requestName" name="name" autocomplete="name" required>
+        </div>
+        <div class="request-field">
+          <label for="requestPhone">Телефон *</label>
+          <input id="requestPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+        </div>
+        <div class="request-field full">
+          <label for="requestEmail">Электронная почта</label>
+          <input id="requestEmail" name="from" type="email" autocomplete="email">
+        </div>
+        <div class="request-field full">
+          <label for="requestComment">Комментарий</label>
+          <textarea id="requestComment" placeholder="Например, удобное время для звонка"></textarea>
+        </div>
+        <input type="hidden" name="subject" value="Заявка из каталога бытовой техники HomeFlowe">
+        <textarea name="content" id="requestContent" hidden></textarea>
+        <label class="request-agree">
+          <input type="checkbox" name="agree" value="1" required>
+          <span>Согласен на обработку персональных данных для связи по заявке.</span>
+        </label>
+        <button class="request-submit" id="requestSubmit" type="submit">Отправить заявку</button>
+        <div class="request-status" id="requestStatus" role="status" aria-live="polite"></div>
+      </form>
+      <iframe name="requestSubmitFrame" id="requestSubmitFrame" title="Отправка заявки" hidden></iframe>
+    </div>
+  </dialog>
+
+  <section class="print-sheet" id="printSheet">
+    <h1 class="print-title">HomeFlowe · Бытовая техника</h1>
+    <div class="print-subtitle" id="printSubtitle"></div>
+    <table class="print-table">
+      <thead><tr><th>№</th><th>Товар</th><th>Наличие</th><th>Розничная цена</th></tr></thead>
+      <tbody id="printRows"></tbody>
+    </table>
+    <div class="print-requisites">
+      <div><strong>ИП Гордеева Ольга Сергеевна</strong><br>ИНН 771376655317 · ОГРНИП 325774600763441</div>
+      <div>127411, Россия, г. Москва,<br>Карельский бульвар, д. 24, кв. 62</div>
+      <div>р/с 40802810338720045024 · ПАО Сбербанк<br>БИК 044525225 · к/с 30101810400000000225</div>
+      <div>+7 916 221-67-80 · info@HomeFlowe.ru<br>homeflowe.ru</div>
+    </div>
+  </section>
+
+  <script src="catalog-data.js"></script>
+  <script src="catalog-live.js"></script>
+  <script>
+    (() => {
+      const data = window.CATALOG_DATA || { products: [] };
+      const products = data.products || [];
+      const liveData = window.CATALOG_LIVE || {};
+      if (liveData.products) {
+        products.forEach(product => {
+          const live = liveData.products[String(product.id)];
+          if (live) {
+            product.price = Number(live[0]) || 0;
+            product.count = Math.max(0, Number(live[1]) || 0);
+          }
+        });
+        if (liveData.updated) data.updated = liveData.updated;
+      }
+      const perPage = 48;
+      let currentPage = 1;
+
+      const $ = id => document.getElementById(id);
+      const els = {
+        search: $('search'), category: $('category'), vendor: $('vendor'), sort: $('sort'), updated: $('updated'),
+        grid: $('grid'), empty: $('empty'), pagination: $('pagination'), resultCount: $('resultCount'),
+        totalHero: $('totalHero'), clear: $('clear'), print: $('print'),
+        printRows: $('printRows'), printSubtitle: $('printSubtitle'), install: $('install'),
+        dialog: $('productDialog'), dialogClose: $('dialogClose'), dialogPhoto: $('dialogPhoto'),
+        dialogCategory: $('dialogCategory'), dialogTitle: $('dialogTitle'), dialogVendor: $('dialogVendor'),
+        dialogStock: $('dialogStock'), dialogPrice: $('dialogPrice'),
+        detailsToggle: $('detailsToggle'), detailsClose: $('detailsClose'), dialogDetails: $('dialogDetails'),
+        dialogDescription: $('dialogDescription'), detailsList: $('detailsList'),
+        detailsViewerTitle: $('detailsViewerTitle'), detailsViewerPrice: $('detailsViewerPrice'),
+        imageViewer: $('imageViewer'), imageViewerClose: $('imageViewerClose'), imageViewerPhoto: $('imageViewerPhoto'),
+        controls: $('catalogControls'), filterToggle: $('filterToggle'), filterClose: $('filterClose'),
+        filterBackdrop: $('filterBackdrop'),
+        requestOpen: $('requestOpen'), requestCount: $('requestCount'), requestDialog: $('requestDialog'),
+        requestClose: $('requestClose'), requestItems: $('requestItems'), requestEmpty: $('requestEmpty'),
+        requestSummary: $('requestSummary'), requestTotal: $('requestTotal'), requestForm: $('requestForm'),
+        requestComment: $('requestComment'), requestContent: $('requestContent'), requestSubmit: $('requestSubmit'),
+        requestStatus: $('requestStatus'), requestSubmitFrame: $('requestSubmitFrame'),
+        dialogRequestAdd: $('dialogRequestAdd'), dialogProductLink: $('dialogProductLink')
+      };
+      const rubles = new Intl.NumberFormat('ru-RU');
+      const collator = new Intl.Collator('ru', { numeric: true, sensitivity: 'base' });
+      const normalize = value => String(value || '').toLocaleLowerCase('ru-RU').replace(/ё/g, 'е').trim();
+      const requestStorageKey = 'homeflowe-catalog-request-v1';
+      const productsById = new Map(products.map(product => [String(product.id), product]));
+      let activeProduct = null;
+      let requestItems = loadRequest();
+
+      function loadRequest() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(requestStorageKey) || '[]');
+          if (!Array.isArray(saved)) return [];
+          return saved
+            .map(item => ({ id: String(item.id), quantity: Math.max(1, Math.min(99, Number(item.quantity) || 1)) }))
+            .filter(item => productsById.has(item.id));
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function saveRequest() {
+        localStorage.setItem(requestStorageKey, JSON.stringify(requestItems));
+        renderRequest();
+      }
+
+      function requestHas(productId) {
+        return requestItems.some(item => item.id === String(productId));
+      }
+
+      function addToRequest(product, button) {
+        const id = String(product.id);
+        const existing = requestItems.find(item => item.id === id);
+        if (existing) existing.quantity = Math.min(99, existing.quantity + 1);
+        else requestItems.push({ id, quantity: 1 });
+        saveRequest();
+        if (button) {
+          button.classList.add('added');
+          button.textContent = 'Добавлено';
+          setTimeout(() => {
+            button.textContent = requestHas(id) ? 'В корзине' : 'Добавить в корзину';
+          }, 900);
+        }
+      }
+
+      function renderRequest() {
+        els.requestItems.replaceChildren();
+        let totalQuantity = 0;
+        let totalPrice = 0;
+        const fragment = document.createDocumentFragment();
+        requestItems = requestItems.filter(item => productsById.has(item.id));
+        requestItems.forEach(item => {
+          const product = productsById.get(item.id);
+          totalQuantity += item.quantity;
+          totalPrice += product.price * item.quantity;
+          const row = document.createElement('div');
+          row.className = 'request-item';
+          const photo = document.createElement('div');
+          photo.className = 'request-item-photo';
+          if (product.picture) {
+            const image = document.createElement('img');
+            image.src = product.picture;
+            image.alt = '';
+            image.loading = 'lazy';
+            image.addEventListener('error', () => image.remove(), { once: true });
+            photo.appendChild(image);
+          }
+          const info = document.createElement('div');
+          const name = document.createElement('div');
+          name.className = 'request-item-name';
+          name.textContent = product.name;
+          const meta = document.createElement('div');
+          meta.className = 'request-item-meta';
+          meta.textContent = [product.vendor, product.category].filter(Boolean).join(' · ');
+          const controls = document.createElement('div');
+          controls.className = 'request-item-controls';
+          const quantity = document.createElement('input');
+          quantity.className = 'request-qty';
+          quantity.type = 'number';
+          quantity.min = '1';
+          quantity.max = '99';
+          quantity.value = String(item.quantity);
+          quantity.setAttribute('aria-label', `Количество ${product.name}`);
+          quantity.addEventListener('change', () => {
+            item.quantity = Math.max(1, Math.min(99, Number(quantity.value) || 1));
+            saveRequest();
+          });
+          const remove = document.createElement('button');
+          remove.className = 'request-remove';
+          remove.type = 'button';
+          remove.textContent = 'Удалить';
+          remove.addEventListener('click', () => {
+            requestItems = requestItems.filter(saved => saved.id !== item.id);
+            saveRequest();
+            render();
+          });
+          controls.append(quantity, remove);
+          info.append(name, meta, controls);
+          const price = document.createElement('div');
+          price.className = 'request-item-price';
+          price.textContent = `${rubles.format(product.price * item.quantity)} ₽`;
+          row.append(photo, info, price);
+          fragment.appendChild(row);
+        });
+        els.requestItems.appendChild(fragment);
+        els.requestCount.textContent = String(totalQuantity);
+        els.requestTotal.textContent = `${rubles.format(totalPrice)} ₽`;
+        els.requestEmpty.hidden = requestItems.length > 0;
+        els.requestSummary.hidden = requestItems.length === 0;
+        els.requestSubmit.disabled = requestItems.length === 0;
+        if (activeProduct) {
+          els.dialogRequestAdd.classList.toggle('added', requestHas(activeProduct.id));
+          els.dialogRequestAdd.textContent = requestHas(activeProduct.id) ? 'В корзине' : 'Добавить в корзину';
+        }
+      }
+
+      function optionList(select, values) {
+        const fragment = document.createDocumentFragment();
+        values.forEach(value => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          fragment.appendChild(option);
+        });
+        select.appendChild(fragment);
+      }
+
+      optionList(els.category, [...new Set(products.map(p => p.category).filter(Boolean))].sort(collator.compare));
+      optionList(els.vendor, [...new Set(products.map(p => p.vendor).filter(Boolean))].sort(collator.compare));
+      els.totalHero.textContent = rubles.format(products.length);
+      if (data.updated) {
+        const parsed = new Date(data.updated.replace(' ', 'T'));
+        els.updated.textContent = Number.isNaN(parsed.getTime()) ? '' : `Цены и наличие обновлены ${parsed.toLocaleString('ru-RU', { dateStyle: 'long', timeStyle: 'short' })}`;
+      }
+
+      function filteredProducts() {
+        const query = normalize(els.search.value);
+        const category = els.category.value;
+        const vendor = els.vendor.value;
+        const result = products.filter(product => {
+          if (category && product.category !== category) return false;
+          if (vendor && product.vendor !== vendor) return false;
+          if (!query) return true;
+          const detailText = (product.details || []).map(item => item.join(' ')).join(' ');
+          return normalize(`${product.name} ${product.vendor} ${product.category} ${product.description || ''} ${detailText}`).includes(query);
+        });
+        if (els.sort.value === 'priceAsc') result.sort((a, b) => a.price - b.price);
+        else if (els.sort.value === 'priceDesc') result.sort((a, b) => b.price - a.price);
+        else result.sort((a, b) => collator.compare(a.name, b.name));
+        return result;
+      }
+
+      function createCard(product) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `Открыть ${product.name}`);
+        const photo = document.createElement('div');
+        photo.className = 'photo';
+        if (product.picture) {
+          const image = document.createElement('img');
+          image.src = product.picture;
+          image.alt = product.name;
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.referrerPolicy = 'no-referrer';
+          image.addEventListener('error', () => { image.remove(); photo.classList.add('no-image'); }, { once: true });
+          photo.appendChild(image);
+        } else photo.classList.add('no-image');
+
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = [product.category, product.vendor].filter(Boolean).join(' · ');
+        const title = document.createElement('div');
+        title.className = 'product-name';
+        title.textContent = product.name;
+        const stock = document.createElement('div');
+        stock.className = `stock${product.count > 0 ? '' : ' out'}`;
+        stock.textContent = product.count > 0 ? `В наличии: ${rubles.format(product.count)} шт.` : 'Нет в наличии';
+        const footer = document.createElement('div');
+        footer.className = 'card-footer';
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = `${rubles.format(product.price)} ₽`;
+        const add = document.createElement('button');
+        add.className = `request-add${requestHas(product.id) ? ' added' : ''}`;
+        add.type = 'button';
+        add.textContent = requestHas(product.id) ? 'В корзине' : 'В корзину';
+        add.setAttribute('aria-label', `Добавить ${product.name} в корзину`);
+        add.addEventListener('click', event => {
+          event.stopPropagation();
+          addToRequest(product, add);
+        });
+        footer.append(price, add);
+        body.append(meta, title, stock, footer);
+        card.append(photo, body);
+        card.addEventListener('click', () => openProduct(product));
+        card.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openProduct(product); }
+        });
+        return card;
+      }
+
+      function openProduct(product) {
+        activeProduct = product;
+        els.dialogPhoto.replaceChildren();
+        if (product.picture) {
+          const image = document.createElement('img');
+          image.src = product.picture;
+          image.alt = product.name;
+          image.addEventListener('error', () => image.remove(), { once: true });
+          image.addEventListener('click', () => {
+            els.imageViewerPhoto.src = product.picture;
+            els.imageViewerPhoto.alt = product.name;
+            els.imageViewer.showModal();
+          });
+          els.dialogPhoto.appendChild(image);
+        }
+        els.dialogCategory.textContent = product.category;
+        els.dialogTitle.textContent = product.name;
+        els.dialogVendor.textContent = product.vendor;
+        els.dialogStock.className = `dialog-stock${product.count > 0 ? '' : ' out'}`;
+        els.dialogStock.textContent = product.count > 0 ? `В наличии: ${rubles.format(product.count)} шт.` : 'Нет в наличии';
+        els.dialogDescription.textContent = product.description || '';
+        els.detailsList.replaceChildren();
+        (product.details || []).forEach(([label, value]) => {
+          const row = document.createElement('div');
+          row.className = 'details-row';
+          const term = document.createElement('dt');
+          const description = document.createElement('dd');
+          term.textContent = label;
+          description.textContent = value;
+          row.append(term, description);
+          els.detailsList.appendChild(row);
+        });
+        els.detailsToggle.hidden = !product.details?.length && !product.description;
+        els.detailsToggle.setAttribute('aria-expanded', 'false');
+        els.detailsToggle.textContent = `Характеристики${product.details?.length ? ` · ${product.details.length}` : ''}`;
+        els.dialogPrice.textContent = `${rubles.format(product.price)} ₽`;
+        els.detailsViewerTitle.textContent = product.name;
+        els.detailsViewerPrice.textContent = `${rubles.format(product.price)} ₽`;
+        els.dialogRequestAdd.classList.toggle('added', requestHas(product.id));
+        els.dialogRequestAdd.textContent = requestHas(product.id) ? 'В корзине' : 'Добавить в корзину';
+        els.dialogProductLink.href = product.url || '#';
+        els.dialogProductLink.hidden = !product.url;
+        els.dialog.scrollTop = 0;
+        els.dialog.showModal();
+        requestAnimationFrame(() => {
+          els.dialog.scrollTop = 0;
+        });
+      }
+
+      function setDetailsExpanded(expanded) {
+        els.detailsToggle.setAttribute('aria-expanded', String(expanded));
+        if (expanded) {
+          if (!els.dialogDetails.open) els.dialogDetails.showModal();
+          const body = els.dialogDetails.querySelector('.details-viewer-body');
+          body.scrollTop = 0;
+          requestAnimationFrame(() => { body.scrollTop = 0; });
+        } else if (els.dialogDetails.open) {
+          els.dialogDetails.close();
+        }
+      }
+      els.detailsToggle.addEventListener('click', () => {
+        setDetailsExpanded(els.detailsToggle.getAttribute('aria-expanded') !== 'true');
+      });
+      els.detailsClose.addEventListener('click', () => {
+        setDetailsExpanded(false);
+        els.detailsToggle.focus();
+      });
+      els.dialogDetails.addEventListener('click', event => {
+        if (event.target === els.dialogDetails) setDetailsExpanded(false);
+      });
+      els.dialogDetails.addEventListener('close', () => {
+        els.detailsToggle.setAttribute('aria-expanded', 'false');
+      });
+
+      function renderPagination(totalPages) {
+        els.pagination.replaceChildren();
+        if (totalPages <= 1) return;
+        const addButton = (label, page, disabled = false, active = false) => {
+          const button = document.createElement('button');
+          button.className = `page-btn${active ? ' active' : ''}`;
+          button.type = 'button';
+          button.textContent = label;
+          button.disabled = disabled;
+          button.addEventListener('click', () => { currentPage = page; render(true); });
+          els.pagination.appendChild(button);
+        };
+        addButton('←', Math.max(1, currentPage - 1), currentPage === 1);
+        const pages = new Set([1, totalPages, currentPage - 1, currentPage, currentPage + 1]);
+        let previous = 0;
+        [...pages].filter(page => page > 0 && page <= totalPages).sort((a,b) => a-b).forEach(page => {
+          if (previous && page - previous > 1) {
+            const gap = document.createElement('span'); gap.textContent = '…'; gap.style.padding = '0 4px'; els.pagination.appendChild(gap);
+          }
+          addButton(String(page), page, false, page === currentPage);
+          previous = page;
+        });
+        addButton('→', Math.min(totalPages, currentPage + 1), currentPage === totalPages);
+      }
+
+      function render(scroll = false) {
+        const result = filteredProducts();
+        const totalPages = Math.max(1, Math.ceil(result.length / perPage));
+        if (currentPage > totalPages) currentPage = totalPages;
+        const start = (currentPage - 1) * perPage;
+        const fragment = document.createDocumentFragment();
+        result.slice(start, start + perPage).forEach(product => fragment.appendChild(createCard(product)));
+        els.grid.replaceChildren(fragment);
+        els.resultCount.textContent = rubles.format(result.length);
+        els.empty.style.display = result.length ? 'none' : 'block';
+        renderPagination(totalPages);
+        if (scroll) document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      let searchTimer;
+      function setFiltersOpen(open) {
+        els.controls.classList.toggle('open', open);
+        els.filterBackdrop.classList.toggle('open', open);
+        els.filterToggle.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('filters-open', open);
+      }
+      els.filterToggle.addEventListener('click', () => {
+        resetFilters();
+        setFiltersOpen(true);
+      });
+      els.filterClose.addEventListener('click', () => setFiltersOpen(false));
+      els.filterBackdrop.addEventListener('click', () => setFiltersOpen(false));
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && els.controls.classList.contains('open')) setFiltersOpen(false);
+      });
+      els.search.addEventListener('input', () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => { currentPage = 1; render(); }, 120);
+      });
+      function resetFilters() {
+        els.search.value = '';
+        els.category.value = '';
+        els.vendor.value = '';
+        els.sort.value = 'name';
+        currentPage = 1;
+        render();
+      }
+      [els.category, els.vendor, els.sort].forEach(control => control.addEventListener('change', () => {
+        currentPage = 1;
+        render();
+      }));
+      els.clear.addEventListener('click', resetFilters);
+      els.dialogClose.addEventListener('click', () => els.dialog.close());
+      els.dialog.addEventListener('click', event => { if (event.target === els.dialog) els.dialog.close(); });
+      els.dialogRequestAdd.addEventListener('click', () => {
+        if (activeProduct) addToRequest(activeProduct, els.dialogRequestAdd);
+      });
+      els.requestOpen.addEventListener('click', () => {
+        renderRequest();
+        els.requestStatus.textContent = '';
+        els.requestDialog.showModal();
+      });
+      els.requestClose.addEventListener('click', () => els.requestDialog.close());
+      els.requestDialog.addEventListener('click', event => {
+        if (event.target === els.requestDialog) els.requestDialog.close();
+      });
+      els.requestForm.addEventListener('submit', event => {
+        if (!requestItems.length) {
+          event.preventDefault();
+          els.requestStatus.textContent = 'Сначала добавьте хотя бы один товар.';
+          return;
+        }
+        const lines = requestItems.map((item, index) => {
+          const product = productsById.get(item.id);
+          return `${index + 1}. ${product.name} — ${item.quantity} шт. × ${rubles.format(product.price)} ₽ = ${rubles.format(product.price * item.quantity)} ₽`;
+        });
+        const total = requestItems.reduce((sum, item) => sum + productsById.get(item.id).price * item.quantity, 0);
+        const comment = els.requestComment.value.trim();
+        els.requestContent.value = [
+          'Заявка из электронного каталога бытовой техники HomeFlowe',
+          '',
+          ...lines,
+          '',
+          `Предварительная стоимость: ${rubles.format(total)} ₽`,
+          comment ? `Комментарий клиента: ${comment}` : '',
+          `Страница: ${location.href}`
+        ].filter(Boolean).join('\n');
+        els.requestSubmit.disabled = true;
+        els.requestStatus.textContent = 'Отправляем заявку…';
+        setTimeout(() => {
+          els.requestStatus.textContent = 'Заявка отправлена. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
+          els.requestForm.reset();
+          requestItems = [];
+          saveRequest();
+          render();
+        }, 1200);
+      });
+      function closeImageViewer() {
+        els.imageViewer.close();
+        els.imageViewerPhoto.removeAttribute('src');
+      }
+      els.imageViewerClose.addEventListener('click', closeImageViewer);
+      els.imageViewerPhoto.addEventListener('click', closeImageViewer);
+      els.imageViewer.addEventListener('click', event => { if (event.target === els.imageViewer) closeImageViewer(); });
+      els.print.addEventListener('click', () => {
+        const result = filteredProducts();
+        const fragment = document.createDocumentFragment();
+        result.forEach((product, index) => {
+          const row = document.createElement('tr');
+          const number = document.createElement('td');
+          number.textContent = String(index + 1);
+          const item = document.createElement('td');
+          const name = document.createElement('div');
+          name.className = 'print-product';
+          name.textContent = product.name;
+          const meta = document.createElement('div');
+          meta.className = 'print-meta';
+          meta.textContent = [product.category, product.vendor].filter(Boolean).join(' · ');
+          item.append(name, meta);
+          const stock = document.createElement('td');
+          stock.textContent = product.count > 0 ? `${rubles.format(product.count)} шт.` : 'Нет';
+          const price = document.createElement('td');
+          price.textContent = `${rubles.format(product.price)} ₽`;
+          row.append(number, item, stock, price);
+          fragment.appendChild(row);
+        });
+        els.printRows.replaceChildren(fragment);
+        const selection = [els.category.value, els.vendor.value, els.search.value ? `поиск: «${els.search.value}»` : ''].filter(Boolean).join(' · ');
+        els.printSubtitle.textContent = `${selection || 'Полный каталог'} · ${rubles.format(result.length)} товаров`;
+        window.print();
+      });
+      let installPrompt;
+      window.addEventListener('beforeinstallprompt', event => {
+        event.preventDefault();
+        installPrompt = event;
+        els.install.style.display = 'inline-block';
+      });
+      els.install.addEventListener('click', async () => {
+        if (!installPrompt) return;
+        installPrompt.prompt();
+        await installPrompt.userChoice;
+        installPrompt = null;
+        els.install.style.display = 'none';
+      });
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+      renderRequest();
+      render();
+      if (new URLSearchParams(location.search).get('request') === '1') {
+        els.requestDialog.showModal();
+      }
+    })();
+  </script>
+</body>
+</html>

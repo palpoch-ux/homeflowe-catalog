@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asko AFP13S — цена и характеристики | HomeFlowe</title>
+  <meta name="description" content="Металлическая сковорода для жарки. Подходит для обычной индукционной поверхности и панели с технологией CelsiusCooking.">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/product/asko-afp13s-18981/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Asko AFP13S — цена и характеристики | HomeFlowe">
+  <meta property="og:description" content="Металлическая сковорода для жарки. Подходит для обычной индукционной поверхности и панели с технологией CelsiusCooking.">
+  <meta property="og:url" content="https://catalog.homeflowe.ru/product/asko-afp13s-18981/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="stylesheet" href="/seo.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Asko AFP13S","brand":{"@type":"Brand","name":"Asko"},"description":"Металлическая сковорода для жарки. Подходит для обычной индукционной поверхности и панели с технологией CelsiusCooking.","image":"https://catalog.homeflowe.ru/images/products/d10e546eb3ae89abc129.webp","sku":"18981","offers":{"@type":"Offer","url":"https://catalog.homeflowe.ru/product/asko-afp13s-18981/","priceCurrency":"RUB","price":25900,"availability":"https://schema.org/InStock"}}</script>
+</head>
+<body>
+  <header class="site-head"><a class="logo" href="/">HomeFlowe</a><a class="head-request" href="/?request=1">Открыть корзину</a></header>
+  <main class="product-page">
+  <nav class="crumbs"><a href="/">Каталог</a> / <a href="/category/posuda/">Посуда</a></nav>
+  <section class="product-hero">
+    <div class="product-photo"><img src="/images/products/d10e546eb3ae89abc129.webp" alt="Asko AFP13S"></div>
+    <div class="product-info">
+      <small>Посуда</small>
+      <h1>Asko AFP13S</h1>
+      <p class="vendor">Asko</p>
+      <p class="availability" data-live-stock="18981">В наличии: 5 шт.</p>
+      <div class="product-price" data-live-price="18981">25 900 ₽</div>
+      <button class="add-request" type="button" data-id="18981">Добавить в корзину</button>
+      <p class="notice">Менеджер подтвердит наличие и стоимость, затем направит счёт.</p>
+    </div>
+  </section>
+  <section class="description"><h2>Описание</h2><p>Металлическая сковорода для жарки.<br><br>Подходит для обычной индукционной поверхности и панели с технологией CelsiusCooking.</p></section>
+  <section class="specs"><h2>Характеристики</h2><dl><div><dt>Тип товара</dt><dd>Сковорода</dd></div><div><dt>Бренд</dt><dd>Asko</dd></div><div><dt>Модель</dt><dd>AFP13S</dd></div><div><dt>Предназначение</dt><dd>для варочных панелей</dd></div><div><dt>Вид</dt><dd>Сковорода с несъемной ручкой</dd></div><div><dt>Материал</dt><dd>678620</dd></div><div><dt>Цвет</dt><dd>сребристый</dd></div><div><dt>Страна-производитель</dt><dd>Швеция</dd></div><div><dt>Дополнительные характеристики</dt><dd>Габариты упаковки: 10.5х53.9х32.3 см, Вес в упаковке: 2.2 кг</dd></div></dl></section>
+</main>
+<script src="/catalog-live.js"></script>
+<script>
+(function () {
+  var id = "18981";
+  var live = window.CATALOG_LIVE && window.CATALOG_LIVE.products && window.CATALOG_LIVE.products[id];
+  if (!live) return;
+  var format = new Intl.NumberFormat('ru-RU');
+  document.querySelector('[data-live-price]').textContent = format.format(Number(live[0]) || 0) + ' ₽';
+  document.querySelector('[data-live-stock]').textContent = Number(live[1]) > 0 ? 'В наличии: ' + format.format(Number(live[1])) + ' шт.' : 'Нет в наличии';
+})();
+document.querySelector('.add-request').addEventListener('click', function () {
+  var key = 'homeflowe-catalog-request-v1';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) {}
+  var id = this.dataset.id;
+  var found = items.find(function (item) { return String(item.id) === id; });
+  if (found) found.quantity = Math.min(99, (Number(found.quantity) || 1) + 1);
+  else items.push({ id: id, quantity: 1 });
+  localStorage.setItem(key, JSON.stringify(items));
+  this.textContent = 'Добавлено — открыть корзину';
+  this.onclick = function () { location.href = '/?request=1'; };
+});
+</script>
+  <footer>HomeFlowe · <a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></footer>
+</body>
+</html>

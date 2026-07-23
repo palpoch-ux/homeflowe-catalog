@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schock 700916 — цена и характеристики | HomeFlowe</title>
+  <meta name="description" content="Schock 700916: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/product/schock-700916-33189/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Schock 700916 — цена и характеристики | HomeFlowe">
+  <meta property="og:description" content="Schock 700916: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <meta property="og:url" content="https://catalog.homeflowe.ru/product/schock-700916-33189/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="stylesheet" href="/seo.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Schock 700916","brand":{"@type":"Brand","name":"Schock"},"description":"Schock 700916: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.","image":"https://catalog.homeflowe.ru/images/products/80ce00cd9bdb1f8a96ed.webp","sku":"33189","offers":{"@type":"Offer","url":"https://catalog.homeflowe.ru/product/schock-700916-33189/","priceCurrency":"RUB","price":45400,"availability":"https://schema.org/InStock"}}</script>
+</head>
+<body>
+  <header class="site-head"><a class="logo" href="/">HomeFlowe</a><a class="head-request" href="/?request=1">Открыть корзину</a></header>
+  <main class="product-page">
+  <nav class="crumbs"><a href="/">Каталог</a> / <a href="/category/moiki/">Мойки</a></nav>
+  <section class="product-hero">
+    <div class="product-photo"><img src="/images/products/80ce00cd9bdb1f8a96ed.webp" alt="Schock 700916"></div>
+    <div class="product-info">
+      <small>Мойки</small>
+      <h1>Schock 700916</h1>
+      <p class="vendor">Schock</p>
+      <p class="availability" data-live-stock="33189">В наличии: 5 шт.</p>
+      <div class="product-price" data-live-price="33189">45 400 ₽</div>
+      <button class="add-request" type="button" data-id="33189">Добавить в корзину</button>
+      <p class="notice">Менеджер подтвердит наличие и стоимость, затем направит счёт.</p>
+    </div>
+  </section>
+  
+  <section class="specs"><h2>Характеристики</h2><dl><div><dt>Тип товара</dt><dd>Мойка</dd></div><div><dt>Бренд</dt><dd>Schock</dd></div><div><dt>Модель</dt><dd>700916</dd></div><div><dt>Материал корпуса</dt><dd>латунь</dd></div><div><dt>Покрытие</dt><dd>нержавеющая сталь</dd></div><div><dt>Угол поворота</dt><dd>360</dd></div><div><dt>Высота смесителя, мм</dt><dd>380</dd></div><div><dt>Параметры</dt><dd>классический излив</dd></div><div><dt>Функционал</dt><dd>поворотный излив, ультратихий аэратор</dd></div><div><dt>Линейка</dt><dd>CRISTALITE®</dd></div><div><dt>Поворотный излив</dt><dd>да</dd></div><div><dt>Высота излива, мм</dt><dd>257</dd></div><div><dt>Длина излива, мм</dt><dd>211</dd></div><div><dt>Отверстие для установки, мм</dt><dd>35</dd></div><div><dt>Вывод для питьевой воды</dt><dd>нет</dd></div><div><dt>Гарантия</dt><dd>1 год</dd></div></dl></section>
+</main>
+<script src="/catalog-live.js"></script>
+<script>
+(function () {
+  var id = "33189";
+  var live = window.CATALOG_LIVE && window.CATALOG_LIVE.products && window.CATALOG_LIVE.products[id];
+  if (!live) return;
+  var format = new Intl.NumberFormat('ru-RU');
+  document.querySelector('[data-live-price]').textContent = format.format(Number(live[0]) || 0) + ' ₽';
+  document.querySelector('[data-live-stock]').textContent = Number(live[1]) > 0 ? 'В наличии: ' + format.format(Number(live[1])) + ' шт.' : 'Нет в наличии';
+})();
+document.querySelector('.add-request').addEventListener('click', function () {
+  var key = 'homeflowe-catalog-request-v1';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) {}
+  var id = this.dataset.id;
+  var found = items.find(function (item) { return String(item.id) === id; });
+  if (found) found.quantity = Math.min(99, (Number(found.quantity) || 1) + 1);
+  else items.push({ id: id, quantity: 1 });
+  localStorage.setItem(key, JSON.stringify(items));
+  this.textContent = 'Добавлено — открыть корзину';
+  this.onclick = function () { location.href = '/?request=1'; };
+});
+</script>
+  <footer>HomeFlowe · <a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></footer>
+</body>
+</html>

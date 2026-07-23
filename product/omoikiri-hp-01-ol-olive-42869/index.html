@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Omoikiri HP-01-OL/olive — цена и характеристики | HomeFlowe</title>
+  <meta name="description" content="Omoikiri HP-01-OL/olive: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/product/omoikiri-hp-01-ol-olive-42869/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Omoikiri HP-01-OL/olive — цена и характеристики | HomeFlowe">
+  <meta property="og:description" content="Omoikiri HP-01-OL/olive: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <meta property="og:url" content="https://catalog.homeflowe.ru/product/omoikiri-hp-01-ol-olive-42869/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="stylesheet" href="/seo.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Omoikiri HP-01-OL/olive","brand":{"@type":"Brand","name":"Omoikiri"},"description":"Omoikiri HP-01-OL/olive: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.","image":"https://catalog.homeflowe.ru/images/products/74e7a99d92a21627c4c4.webp","sku":"42869","offers":{"@type":"Offer","url":"https://catalog.homeflowe.ru/product/omoikiri-hp-01-ol-olive-42869/","priceCurrency":"RUB","price":2888,"availability":"https://schema.org/InStock"}}</script>
+</head>
+<body>
+  <header class="site-head"><a class="logo" href="/">HomeFlowe</a><a class="head-request" href="/?request=1">Открыть корзину</a></header>
+  <main class="product-page">
+  <nav class="crumbs"><a href="/">Каталог</a> / <a href="/category/aksessuary/">Аксессуары</a></nav>
+  <section class="product-hero">
+    <div class="product-photo"><img src="/images/products/74e7a99d92a21627c4c4.webp" alt="Omoikiri HP-01-OL/olive"></div>
+    <div class="product-info">
+      <small>Аксессуары</small>
+      <h1>Omoikiri HP-01-OL/olive</h1>
+      <p class="vendor">Omoikiri</p>
+      <p class="availability" data-live-stock="42869">В наличии: 10 шт.</p>
+      <div class="product-price" data-live-price="42869">2 888 ₽</div>
+      <button class="add-request" type="button" data-id="42869">Добавить в корзину</button>
+      <p class="notice">Менеджер подтвердит наличие и стоимость, затем направит счёт.</p>
+    </div>
+  </section>
+  
+  <section class="specs"><h2>Характеристики</h2><dl><div><dt>Тип товара</dt><dd>Набор подставок под горячее</dd></div><div><dt>Бренд</dt><dd>Omoikiri</dd></div><div><dt>Модель</dt><dd>HP-01-OL/olive</dd></div><div><dt>Предназначено для</dt><dd>Omoikiri</dd></div><div><dt>Предназначение</dt><dd>Для кухни</dd></div><div><dt>Вид</dt><dd>Подставка под горячее</dd></div><div><dt>Количество (шт)</dt><dd>2</dd></div><div><dt>Артикул</dt><dd>HP-01-OL/olive</dd></div><div><dt>Примечание</dt><dd>Диаметр подставок 20 и 25 см</dd></div><div><dt>Комплектация</dt><dd>Подставка под горячее - 2 шт</dd></div></dl></section>
+</main>
+<script src="/catalog-live.js"></script>
+<script>
+(function () {
+  var id = "42869";
+  var live = window.CATALOG_LIVE && window.CATALOG_LIVE.products && window.CATALOG_LIVE.products[id];
+  if (!live) return;
+  var format = new Intl.NumberFormat('ru-RU');
+  document.querySelector('[data-live-price]').textContent = format.format(Number(live[0]) || 0) + ' ₽';
+  document.querySelector('[data-live-stock]').textContent = Number(live[1]) > 0 ? 'В наличии: ' + format.format(Number(live[1])) + ' шт.' : 'Нет в наличии';
+})();
+document.querySelector('.add-request').addEventListener('click', function () {
+  var key = 'homeflowe-catalog-request-v1';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) {}
+  var id = this.dataset.id;
+  var found = items.find(function (item) { return String(item.id) === id; });
+  if (found) found.quantity = Math.min(99, (Number(found.quantity) || 1) + 1);
+  else items.push({ id: id, quantity: 1 });
+  localStorage.setItem(key, JSON.stringify(items));
+  this.textContent = 'Добавлено — открыть корзину';
+  this.onclick = function () { location.href = '/?request=1'; };
+});
+</script>
+  <footer>HomeFlowe · <a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></footer>
+</body>
+</html>

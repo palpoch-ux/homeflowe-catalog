@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schock 710001 — цена и характеристики | HomeFlowe</title>
+  <meta name="description" content="Нашли ошибку - сообщите нам">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/product/schock-710001-32944/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Schock 710001 — цена и характеристики | HomeFlowe">
+  <meta property="og:description" content="Нашли ошибку - сообщите нам">
+  <meta property="og:url" content="https://catalog.homeflowe.ru/product/schock-710001-32944/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="stylesheet" href="/seo.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Schock 710001","brand":{"@type":"Brand","name":"Schock"},"description":"Нашли ошибку - сообщите нам","image":"https://catalog.homeflowe.ru/images/products/de3dd53f9d5211f278e8.webp","sku":"32944","offers":{"@type":"Offer","url":"https://catalog.homeflowe.ru/product/schock-710001-32944/","priceCurrency":"RUB","price":15100,"availability":"https://schema.org/InStock"}}</script>
+</head>
+<body>
+  <header class="site-head"><a class="logo" href="/">HomeFlowe</a><a class="head-request" href="/?request=1">Открыть корзину</a></header>
+  <main class="product-page">
+  <nav class="crumbs"><a href="/">Каталог</a> / <a href="/category/aksessuary/">Аксессуары</a></nav>
+  <section class="product-hero">
+    <div class="product-photo"><img src="/images/products/de3dd53f9d5211f278e8.webp" alt="Schock 710001"></div>
+    <div class="product-info">
+      <small>Аксессуары</small>
+      <h1>Schock 710001</h1>
+      <p class="vendor">Schock</p>
+      <p class="availability" data-live-stock="32944">В наличии: 5 шт.</p>
+      <div class="product-price" data-live-price="32944">15 100 ₽</div>
+      <button class="add-request" type="button" data-id="32944">Добавить в корзину</button>
+      <p class="notice">Менеджер подтвердит наличие и стоимость, затем направит счёт.</p>
+    </div>
+  </section>
+  <section class="description"><h2>Описание</h2><p>Нашли ошибку - сообщите нам</p></section>
+  <section class="specs"><h2>Характеристики</h2><dl><div><dt>Тип товара</dt><dd>Дозатор мыла</dd></div><div><dt>Бренд</dt><dd>Schock</dd></div><div><dt>Модель</dt><dd>710001</dd></div><div><dt>Цвет</dt><dd>хром</dd></div><div><dt>Артикул</dt><dd>710001</dd></div><div><dt>Материал</dt><dd>латунь</dd></div><div><dt>Размер ШхГхВ, мм</dt><dd>200х130х75</dd></div><div><dt>Вес, кг</dt><dd>0.42</dd></div><div><dt>Гарантия</dt><dd>1 год</dd></div><div><dt>Страна-производитель</dt><dd>Германия</dd></div></dl></section>
+</main>
+<script src="/catalog-live.js"></script>
+<script>
+(function () {
+  var id = "32944";
+  var live = window.CATALOG_LIVE && window.CATALOG_LIVE.products && window.CATALOG_LIVE.products[id];
+  if (!live) return;
+  var format = new Intl.NumberFormat('ru-RU');
+  document.querySelector('[data-live-price]').textContent = format.format(Number(live[0]) || 0) + ' ₽';
+  document.querySelector('[data-live-stock]').textContent = Number(live[1]) > 0 ? 'В наличии: ' + format.format(Number(live[1])) + ' шт.' : 'Нет в наличии';
+})();
+document.querySelector('.add-request').addEventListener('click', function () {
+  var key = 'homeflowe-catalog-request-v1';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) {}
+  var id = this.dataset.id;
+  var found = items.find(function (item) { return String(item.id) === id; });
+  if (found) found.quantity = Math.min(99, (Number(found.quantity) || 1) + 1);
+  else items.push({ id: id, quantity: 1 });
+  localStorage.setItem(key, JSON.stringify(items));
+  this.textContent = 'Добавлено — открыть корзину';
+  this.onclick = function () { location.href = '/?request=1'; };
+});
+</script>
+  <footer>HomeFlowe · <a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></footer>
+</body>
+</html>

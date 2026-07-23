@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maunfeld MGC50GEW01D — цена и характеристики | HomeFlowe</title>
+  <meta name="description" content="Maunfeld MGC50GEW01D: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <link rel="canonical" href="https://catalog.homeflowe.ru/product/maunfeld-mgc50gew01d-25381/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Maunfeld MGC50GEW01D — цена и характеристики | HomeFlowe">
+  <meta property="og:description" content="Maunfeld MGC50GEW01D: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.">
+  <meta property="og:url" content="https://catalog.homeflowe.ru/product/maunfeld-mgc50gew01d-25381/">
+  <meta name="theme-color" content="#183f32">
+  <link rel="stylesheet" href="/seo.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Maunfeld MGC50GEW01D","brand":{"@type":"Brand","name":"Maunfeld"},"description":"Maunfeld MGC50GEW01D: характеристики, розничная цена и актуальное наличие в каталоге HomeFlowe.","image":"https://catalog.homeflowe.ru/images/products/fallback-25381.webp","sku":"25381","offers":{"@type":"Offer","url":"https://catalog.homeflowe.ru/product/maunfeld-mgc50gew01d-25381/","priceCurrency":"RUB","price":29990,"availability":"https://schema.org/InStock"}}</script>
+</head>
+<body>
+  <header class="site-head"><a class="logo" href="/">HomeFlowe</a><a class="head-request" href="/?request=1">Открыть корзину</a></header>
+  <main class="product-page">
+  <nav class="crumbs"><a href="/">Каталог</a> / <a href="/category/varochnye-centry/">Варочные центры</a></nav>
+  <section class="product-hero">
+    <div class="product-photo"><img src="/images/products/fallback-25381.webp" alt="Maunfeld MGC50GEW01D"></div>
+    <div class="product-info">
+      <small>Варочные центры</small>
+      <h1>Maunfeld MGC50GEW01D</h1>
+      <p class="vendor">Maunfeld</p>
+      <p class="availability" data-live-stock="25381">В наличии: 10 шт.</p>
+      <div class="product-price" data-live-price="25381">29 990 ₽</div>
+      <button class="add-request" type="button" data-id="25381">Добавить в корзину</button>
+      <p class="notice">Менеджер подтвердит наличие и стоимость, затем направит счёт.</p>
+    </div>
+  </section>
+  
+  <section class="specs"><h2>Характеристики</h2><dl><div><dt>Тип товара</dt><dd>Газовая плита</dd></div><div><dt>Бренд</dt><dd>Maunfeld</dd></div><div><dt>Модель</dt><dd>MGC50GEW01D</dd></div></dl></section>
+</main>
+<script src="/catalog-live.js"></script>
+<script>
+(function () {
+  var id = "25381";
+  var live = window.CATALOG_LIVE && window.CATALOG_LIVE.products && window.CATALOG_LIVE.products[id];
+  if (!live) return;
+  var format = new Intl.NumberFormat('ru-RU');
+  document.querySelector('[data-live-price]').textContent = format.format(Number(live[0]) || 0) + ' ₽';
+  document.querySelector('[data-live-stock]').textContent = Number(live[1]) > 0 ? 'В наличии: ' + format.format(Number(live[1])) + ' шт.' : 'Нет в наличии';
+})();
+document.querySelector('.add-request').addEventListener('click', function () {
+  var key = 'homeflowe-catalog-request-v1';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(key) || '[]'); } catch (_) {}
+  var id = this.dataset.id;
+  var found = items.find(function (item) { return String(item.id) === id; });
+  if (found) found.quantity = Math.min(99, (Number(found.quantity) || 1) + 1);
+  else items.push({ id: id, quantity: 1 });
+  localStorage.setItem(key, JSON.stringify(items));
+  this.textContent = 'Добавлено — открыть корзину';
+  this.onclick = function () { location.href = '/?request=1'; };
+});
+</script>
+  <footer>HomeFlowe · <a href="tel:+79162216780">+7 916 221-67-80</a> · <a href="mailto:info@HomeFlowe.ru">info@HomeFlowe.ru</a></footer>
+</body>
+</html>
