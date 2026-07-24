@@ -1,5 +1,7 @@
-const CACHE = 'homeflowe-catalog-v3';
-const SHELL = ['./', './index.html', './catalog-data.js', './catalog-live.js', './manifest.webmanifest', './images/icon-192.png', './images/icon-512.png'];
+const CACHE = 'homeflowe-catalog-v4';
+// Catalogue data is deliberately excluded: it is versioned by the build and
+// must always be requested from the network when a new site version opens.
+const SHELL = ['./', './index.html', './manifest.webmanifest', './images/icon-192.png', './images/icon-512.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
