@@ -403,8 +403,10 @@
     .dialog-vendor { color: var(--muted); font-size: 14px; }
     .dialog-summary { margin-top: 18px; color: var(--ink); font-size: 14px; line-height: 1.6; }
     .dialog-article { margin-top: 10px; color: var(--muted); font-size: 12px; }
-    .dialog-variants { margin-top: 18px; }
+    .dialog-variants { margin-top: auto; padding-top: 22px; }
     .dialog-variants .variant-picker { margin: 0; }
+    .dialog-variants .variant-thumbs { padding: 3px 1px 8px; }
+    .dialog-variants .variant-thumb { width: 54px; height: 54px; flex-basis: 54px; }
     .dialog-stock { margin-top: 18px; color: var(--green-2); font-size: 14px; font-weight: 700; }
     .dialog-stock.out { color: #9a4c42; }
     .details-toggle {
@@ -494,10 +496,8 @@
     .image-viewer::backdrop { background: rgba(9, 20, 16, .94); }
     .image-viewer img {
       display: block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       cursor: zoom-out;
     }
@@ -818,7 +818,6 @@
         <div class="dialog-vendor" id="dialogVendor"></div>
         <div class="dialog-summary" id="dialogSummary"></div>
         <div class="dialog-article" id="dialogArticle"></div>
-        <div class="dialog-variants" id="dialogVariants"></div>
         <div class="dialog-stock" id="dialogStock"></div>
         <div class="dialog-actions">
           <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false">Характеристики</button>
@@ -826,6 +825,7 @@
         </div>
         <button class="request-add dialog-request-add" id="dialogRequestAdd" type="button">Добавить в корзину</button>
         <a class="dialog-product-link" id="dialogProductLink" href="#">Открыть отдельную страницу товара</a>
+        <div class="dialog-variants" id="dialogVariants"></div>
       </div>
     </div>
   </dialog>
