@@ -405,7 +405,11 @@
     .dialog-article { margin-top: 10px; color: var(--muted); font-size: 12px; }
     .dialog-variants { margin-top: auto; padding-top: 22px; }
     .dialog-variants .variant-picker { margin: 0; }
-    .dialog-variants .variant-thumbs { padding: 3px 1px 8px; }
+    .dialog-variants .variant-thumbs {
+      flex-wrap: wrap;
+      overflow: visible;
+      padding: 3px 1px 4px;
+    }
     .dialog-variants .variant-thumb { width: 54px; height: 54px; flex-basis: 54px; }
     .dialog-stock { margin-top: 18px; color: var(--green-2); font-size: 14px; font-weight: 700; }
     .dialog-stock.out { color: #9a4c42; }
