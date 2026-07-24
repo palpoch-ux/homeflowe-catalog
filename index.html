@@ -55,21 +55,13 @@
       display: flex;
       align-items: center;
       gap: 13px;
+      color: #fff;
       font-size: 23px;
       font-weight: 700;
       letter-spacing: -.04em;
+      text-decoration: none;
     }
-    .brand-mark {
-      width: 39px;
-      height: 39px;
-      border: 1px solid rgba(255,255,255,.48);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-family: Georgia, serif;
-      font-size: 19px;
-      font-weight: 400;
-    }
+    .brand-logo { width: 76px; height: 42px; display: block; object-fit: contain; }
     .top-links { display: flex; align-items: center; gap: 26px; font-size: 14px; }
     .top-links a { color: rgba(255,255,255,.82); text-decoration: none; }
     .top-links a:hover { color: #fff; }
@@ -260,6 +252,7 @@
     }
     .card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(22,38,30,.1); outline: none; }
     .photo {
+      position: relative;
       width: 100%;
       height: 260px;
       min-height: 0;
@@ -271,16 +264,46 @@
       border-bottom: 1px solid #edf0ed;
     }
     .photo img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-    .photo.no-image::after { content: "HomeFlowe"; color: #b0b8b3; font-family: Georgia, serif; font-size: 22px; }
-    .card-body { min-height: 206px; padding: 19px 20px 21px; display: flex; flex: 1; flex-direction: column; }
+    .analog-photo-badge {
+      position: absolute;
+      z-index: 1;
+      left: 12px;
+      bottom: 12px;
+      max-width: calc(100% - 24px);
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(22, 67, 52, .88);
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: .05em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .photo.no-image { align-content: center; gap: 8px; text-align: center; }
+    .no-image-kind { max-width: 210px; color: var(--ink); font-size: 14px; font-weight: 700; line-height: 1.35; }
+    .no-image-note { color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .card-body { min-height: 236px; padding: 19px 20px 21px; display: flex; flex: 1; flex-direction: column; }
     .meta { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .product-name {
-      height: 66px;
-      margin: 10px 0 24px;
+    .product-kind {
+      min-height: 38px;
+      margin-top: 10px;
       overflow: hidden;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
+      color: var(--green-2);
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+    .product-name {
+      height: 44px;
+      margin: 7px 0 24px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
       font-size: 16px;
       font-weight: 600;
       line-height: 1.38;
@@ -359,10 +382,14 @@
     .dialog-content { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 520px; }
     .dialog-photo { position: relative; min-width: 0; min-height: 460px; padding: 42px; display: grid; place-items: center; overflow: hidden; background: #f7f8f5; }
     .dialog-photo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 500px; object-fit: contain; cursor: zoom-in; }
+    .dialog-photo.no-image { align-content: center; gap: 10px; text-align: center; }
+    .dialog-photo.no-image .no-image-kind { max-width: 320px; font-family: Georgia, serif; font-size: 24px; font-weight: 400; }
+    .dialog-photo.no-image .no-image-note { font-size: 12px; }
     .dialog-info { padding: 70px 42px 42px; display: flex; flex-direction: column; }
     .dialog-category { color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
     .dialog-title { margin: 18px 0 12px; font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.15; }
     .dialog-vendor { color: var(--muted); font-size: 14px; }
+    .dialog-summary { margin-top: 18px; color: var(--ink); font-size: 14px; line-height: 1.6; }
     .dialog-stock { margin-top: 18px; color: var(--green-2); font-size: 14px; font-weight: 700; }
     .dialog-stock.out { color: #9a4c42; }
     .details-toggle {
@@ -558,8 +585,10 @@
     @media (max-width: 760px) {
       body.filters-open { overflow: hidden; }
       .topbar-inner { min-height: 66px; padding: 0 18px; }
-      .top-links a:first-child { display: none; }
+      .top-links a[href="#requisites"] { display: none; }
       .top-links { gap: 8px; }
+      .brand { gap: 7px; font-size: 17px; }
+      .brand-logo { width: 48px; height: 34px; }
       .request-nav { min-height: 38px; padding: 0 10px; }
       .hero-inner { padding: 48px 18px 84px; grid-template-columns: 1fr; gap: 34px; }
       .hero-stat { padding: 0; border: 0; display: flex; align-items: baseline; gap: 12px; }
@@ -666,9 +695,12 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand"><span class="brand-mark">H</span>HomeFlowe</div>
+      <a class="brand" href="https://homeflowe.ru/" aria-label="Перейти на основной сайт HomeFlowe">
+        <img class="brand-logo" src="images/homeflowe-logo.webp" alt="">
+        <span>HomeFlowe</span>
+      </a>
       <nav class="top-links" aria-label="Основная навигация">
-        <a href="#catalog">Каталог</a>
+        <a href="https://homeflowe.ru/">На сайт</a>
         <a href="#requisites">Реквизиты</a>
         <button class="request-nav" id="requestOpen" type="button">Корзина <span class="request-count" id="requestCount">0</span></button>
         <button class="install-btn" id="install" type="button">Установить</button>
@@ -755,6 +787,7 @@
         <div class="dialog-category" id="dialogCategory"></div>
         <h2 class="dialog-title" id="dialogTitle"></h2>
         <div class="dialog-vendor" id="dialogVendor"></div>
+        <div class="dialog-summary" id="dialogSummary"></div>
         <div class="dialog-stock" id="dialogStock"></div>
         <div class="dialog-actions">
           <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false">Характеристики</button>
@@ -874,6 +907,7 @@
         printRows: $('printRows'), printSubtitle: $('printSubtitle'), install: $('install'),
         dialog: $('productDialog'), dialogClose: $('dialogClose'), dialogPhoto: $('dialogPhoto'),
         dialogCategory: $('dialogCategory'), dialogTitle: $('dialogTitle'), dialogVendor: $('dialogVendor'),
+        dialogSummary: $('dialogSummary'),
         dialogStock: $('dialogStock'), dialogPrice: $('dialogPrice'),
         detailsToggle: $('detailsToggle'), detailsClose: $('detailsClose'), dialogDetails: $('dialogDetails'),
         dialogDescription: $('dialogDescription'), detailsList: $('detailsList'),
@@ -891,6 +925,51 @@
       const rubles = new Intl.NumberFormat('ru-RU');
       const collator = new Intl.Collator('ru', { numeric: true, sensitivity: 'base' });
       const normalize = value => String(value || '').toLocaleLowerCase('ru-RU').replace(/ё/g, 'е').trim();
+      const detailValue = (product, labels) => {
+        const wanted = new Set(labels.map(normalize));
+        const match = (product.details || []).find(([label, value]) => wanted.has(normalize(label)) && String(value || '').trim());
+        return match ? String(match[1]).trim() : '';
+      };
+      const productKind = product => {
+        const declared = detailValue(product, ['Тип товара']);
+        const view = detailValue(product, ['Вид']);
+        const purpose = detailValue(product, ['Назначение', 'Предназначение']);
+        const generic = /^(аксессуар(?:ы)?|пакеты|комплект|контейнер|корзина|стойка|нет фото)$/i;
+        let kind = generic.test(declared) ? (view || purpose || declared) : declared;
+        if (!kind || /^нет фото$/i.test(kind)) kind = product.category || 'Товар';
+        kind = kind.replace(/\s+/g, ' ').trim();
+        return kind.length > 95 ? `${kind.slice(0, 92).trim()}…` : kind;
+      };
+      const productSummary = product => {
+        const kind = productKind(product);
+        const priority = [
+          'Назначение', 'Предназначение', 'Предназначено для',
+          'Вид', 'Тип', 'Объём (л)', 'Объем, л', 'Количество (шт)',
+          'Тип установки', 'Габариты (ВхШхГ), см', 'Размеры (ВхШхГ), мм',
+          'Материал', 'Цвет'
+        ];
+        const facts = [];
+        for (const label of priority) {
+          const value = detailValue(product, [label]);
+          if (!value || normalize(value) === normalize(kind)) continue;
+          const key = normalize(label);
+          if (facts.some(item => item.key === key || normalize(item.value) === normalize(value))) continue;
+          facts.push({ key, label, value });
+          if (facts.length === 3) break;
+        }
+        const factText = facts.map(item => `${item.label}: ${item.value}`).join(' · ');
+        return factText ? `${kind}. ${factText}.` : `${kind}.`;
+      };
+      const addMissingPhotoPlaceholder = (container, product) => {
+        container.classList.add('no-image');
+        const kind = document.createElement('span');
+        kind.className = 'no-image-kind';
+        kind.textContent = productKind(product);
+        const note = document.createElement('span');
+        note.className = 'no-image-note';
+        note.textContent = 'Фото уточняется';
+        container.append(kind, note);
+      };
       const requestStorageKey = 'homeflowe-catalog-request-v1';
       const productsById = new Map(products.map(product => [String(product.id), product]));
       let activeProduct = null;
@@ -1106,15 +1185,27 @@
           image.loading = 'lazy';
           image.decoding = 'async';
           image.referrerPolicy = 'no-referrer';
-          image.addEventListener('error', () => { image.remove(); photo.classList.add('no-image'); }, { once: true });
+          image.addEventListener('error', () => {
+            image.remove();
+            addMissingPhotoPlaceholder(photo, product);
+          }, { once: true });
           photo.appendChild(image);
-        } else photo.classList.add('no-image');
+        } else addMissingPhotoPlaceholder(photo, product);
+        if (product.picture_is_analog) {
+          const badge = document.createElement('span');
+          badge.className = 'analog-photo-badge';
+          badge.textContent = 'Фото аналогичной модели';
+          photo.appendChild(badge);
+        }
 
         const body = document.createElement('div');
         body.className = 'card-body';
         const meta = document.createElement('div');
         meta.className = 'meta';
         meta.textContent = [product.category, product.vendor].filter(Boolean).join(' · ');
+        const kind = document.createElement('div');
+        kind.className = 'product-kind';
+        kind.textContent = productKind(product);
         const title = document.createElement('div');
         title.className = 'product-name';
         title.textContent = product.name;
@@ -1136,7 +1227,7 @@
           addToRequest(product, add);
         });
         footer.append(price, add);
-        body.append(meta, title, stock, footer);
+        body.append(meta, kind, title, stock, footer);
         card.append(photo, body);
         card.addEventListener('click', () => openProduct(product));
         card.addEventListener('keydown', event => {
@@ -1148,21 +1239,34 @@
       function openProduct(product) {
         activeProduct = product;
         els.dialogPhoto.replaceChildren();
+        els.dialogPhoto.classList.remove('no-image');
         if (product.picture) {
           const image = document.createElement('img');
           image.src = product.picture;
           image.alt = product.name;
-          image.addEventListener('error', () => image.remove(), { once: true });
+          image.addEventListener('error', () => {
+            image.remove();
+            addMissingPhotoPlaceholder(els.dialogPhoto, product);
+          }, { once: true });
           image.addEventListener('click', () => {
             els.imageViewerPhoto.src = product.picture;
             els.imageViewerPhoto.alt = product.name;
             els.imageViewer.showModal();
           });
           els.dialogPhoto.appendChild(image);
+        } else {
+          addMissingPhotoPlaceholder(els.dialogPhoto, product);
         }
-        els.dialogCategory.textContent = product.category;
+        if (product.picture_is_analog) {
+          const badge = document.createElement('span');
+          badge.className = 'analog-photo-badge';
+          badge.textContent = 'Фото аналогичной модели';
+          els.dialogPhoto.appendChild(badge);
+        }
+        els.dialogCategory.textContent = [productKind(product), product.category].filter(Boolean).join(' · ');
         els.dialogTitle.textContent = product.name;
         els.dialogVendor.textContent = product.vendor;
+        els.dialogSummary.textContent = productSummary(product);
         els.dialogStock.className = `dialog-stock${product.count > 0 ? '' : ' out'}`;
         els.dialogStock.textContent = product.count > 0 ? `В наличии: ${rubles.format(product.count)} шт.` : 'Нет в наличии';
         els.dialogDescription.textContent = product.description || '';
