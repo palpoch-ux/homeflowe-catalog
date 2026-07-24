@@ -365,8 +365,8 @@
     .footer-bottom a { color: #fff; text-decoration: none; }
     .print-sheet { display: none; }
     .product-dialog {
-      width: min(900px, calc(100vw - 28px));
-      max-height: calc(100vh - 28px);
+      width: min(1280px, calc(100vw - 48px));
+      max-height: calc(100dvh - 48px);
       padding: 0;
       overflow: auto;
       border: 0;
@@ -391,15 +391,15 @@
       font-size: 24px;
       line-height: 1;
     }
-    .dialog-content { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 520px; }
-    .dialog-photo { position: relative; min-width: 0; min-height: 460px; padding: 42px; display: grid; place-items: center; overflow: hidden; background: #f7f8f5; }
-    .dialog-photo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 500px; object-fit: contain; cursor: zoom-in; }
+    .dialog-content { display: grid; grid-template-columns: minmax(440px, 1.15fr) minmax(0, 1fr); min-height: 640px; }
+    .dialog-photo { position: relative; min-width: 0; min-height: 640px; padding: 48px; display: grid; place-items: center; overflow: hidden; background: #f7f8f5; }
+    .dialog-photo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 560px; object-fit: contain; cursor: zoom-in; }
     .dialog-photo.no-image { align-content: center; gap: 10px; text-align: center; }
     .dialog-photo.no-image .no-image-kind { max-width: 320px; font-family: Georgia, serif; font-size: 24px; font-weight: 400; }
     .dialog-photo.no-image .no-image-note { font-size: 12px; }
-    .dialog-info { padding: 70px 42px 42px; display: flex; flex-direction: column; }
+    .dialog-info { min-width: 0; padding: 70px 48px 42px; display: flex; flex-direction: column; }
     .dialog-category { color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
-    .dialog-title { margin: 18px 0 12px; font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.15; }
+    .dialog-title { margin: 18px 0 12px; overflow-wrap: anywhere; font-family: Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.15; }
     .dialog-vendor { color: var(--muted); font-size: 14px; }
     .dialog-summary { margin-top: 18px; color: var(--ink); font-size: 14px; line-height: 1.6; }
     .dialog-article { margin-top: 10px; color: var(--muted); font-size: 12px; }
@@ -423,7 +423,7 @@
       font-weight: 750;
     }
     .details-toggle:hover, .details-toggle[aria-expanded="true"] { color: #fff; background: var(--green); }
-    .dialog-actions { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .dialog-actions { min-width: 0; margin-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .dialog-request-add { margin-top: 18px; width: 100%; min-height: 48px; font-size: 14px; }
     .dialog-product-link { margin-top: 13px; align-self: center; color: var(--green-2); font-size: 12px; text-underline-offset: 3px; }
     .details-close {
