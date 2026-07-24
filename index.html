@@ -222,6 +222,30 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
+      align-items: stretch;
+    }
+    .category-group-title {
+      grid-column: 1 / -1;
+      margin: 22px 0 0;
+      padding: 18px 2px 13px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .category-group-title:first-child { margin-top: 0; }
+    .category-group-title h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(25px, 3vw, 36px);
+      font-weight: 400;
+      line-height: 1.1;
+    }
+    .category-group-title span {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
     }
     .card {
       min-width: 0;
@@ -236,14 +260,17 @@
     }
     .card:hover, .card:focus-visible { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(22,38,30,.1); outline: none; }
     .photo {
-      aspect-ratio: 1.12 / 1;
+      width: 100%;
+      height: 260px;
+      min-height: 0;
+      overflow: hidden;
       display: grid;
       place-items: center;
       padding: 22px;
       background: #f8f8f5;
       border-bottom: 1px solid #edf0ed;
     }
-    .photo img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .photo img { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
     .photo.no-image::after { content: "HomeFlowe"; color: #b0b8b3; font-family: Georgia, serif; font-size: 22px; }
     .card-body { min-height: 206px; padding: 19px 20px 21px; display: flex; flex: 1; flex-direction: column; }
     .meta { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -525,6 +552,7 @@
     }
     @media (max-width: 1100px) {
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .photo { height: 240px; }
       .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
@@ -588,7 +616,7 @@
       }
       .mobile-filter-toggle[aria-expanded="true"] { opacity: 0; pointer-events: none; }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-      .photo { padding: 12px; }
+      .photo { height: 200px; padding: 12px; }
       .card-body { min-height: 194px; padding: 14px; }
       .product-name { font-size: 14px; }
       .price { font-size: 18px; }
@@ -622,7 +650,8 @@
       .top-links { gap: 10px; }
       h1 { font-size: 43px; }
       .grid { grid-template-columns: 1fr; }
-      .photo { aspect-ratio: 1.35 / 1; }
+      .photo { height: 250px; }
+      .category-group-title { margin-top: 16px; padding: 15px 2px 10px; }
       .card-footer { align-items: stretch; flex-direction: column; }
       .request-add { width: 100%; }
       .dialog-info { padding: 24px 20px; }
@@ -1049,9 +1078,16 @@
           const detailText = (product.details || []).map(item => item.join(' ')).join(' ');
           return normalize(`${product.name} ${product.vendor} ${product.category} ${product.description || ''} ${detailText}`).includes(query);
         });
-        if (els.sort.value === 'priceAsc') result.sort((a, b) => a.price - b.price);
-        else if (els.sort.value === 'priceDesc') result.sort((a, b) => b.price - a.price);
-        else result.sort((a, b) => collator.compare(a.name, b.name));
+        const compareProducts = (a, b) => {
+          if (els.sort.value === 'priceAsc') return a.price - b.price || collator.compare(a.name, b.name);
+          if (els.sort.value === 'priceDesc') return b.price - a.price || collator.compare(a.name, b.name);
+          return collator.compare(a.name, b.name);
+        };
+        if (!vendor && !category) {
+          result.sort((a, b) => collator.compare(a.category || '', b.category || '') || compareProducts(a, b));
+        } else {
+          result.sort(compareProducts);
+        }
         return result;
       }
 
@@ -1214,7 +1250,26 @@
         if (currentPage > totalPages) currentPage = totalPages;
         const start = (currentPage - 1) * perPage;
         const fragment = document.createDocumentFragment();
-        result.slice(start, start + perPage).forEach(product => fragment.appendChild(createCard(product)));
+        const groupedByCategory = !els.vendor.value && !els.category.value;
+        const categoryCounts = groupedByCategory
+          ? result.reduce((counts, product) => counts.set(product.category || 'Другая техника', (counts.get(product.category || 'Другая техника') || 0) + 1), new Map())
+          : null;
+        let previousCategory = null;
+        result.slice(start, start + perPage).forEach(product => {
+          const category = product.category || 'Другая техника';
+          if (groupedByCategory && category !== previousCategory) {
+            const heading = document.createElement('div');
+            heading.className = 'category-group-title';
+            const title = document.createElement('h2');
+            title.textContent = category;
+            const count = document.createElement('span');
+            count.textContent = `${rubles.format(categoryCounts.get(category) || 0)} товаров`;
+            heading.append(title, count);
+            fragment.appendChild(heading);
+            previousCategory = category;
+          }
+          fragment.appendChild(createCard(product));
+        });
         els.grid.replaceChildren(fragment);
         els.resultCount.textContent = rubles.format(result.length);
         els.empty.style.display = result.length ? 'none' : 'block';
