@@ -1335,33 +1335,20 @@
           label.className = 'variant-picker-label';
           label.textContent = `${group.attribute || 'Варианты'}: ${group.variants.length}`;
           picker.appendChild(label);
-          if (group.variants.length <= 4) {
-            const thumbs = document.createElement('div');
-            thumbs.className = 'variant-thumbs';
-            group.variants.forEach(variant => {
-              const button = document.createElement('button');
-              button.type = 'button'; button.className = 'variant-thumb';
-              button.dataset.variantId = String(variant.id);
-              button.title = variantColor(variant);
-              button.setAttribute('aria-label', `Выбрать вариант: ${variantColor(variant)}`);
-              button.addEventListener('click', event => { event.stopPropagation(); updateCard(variant); });
-              if (variant.picture) { const image = document.createElement('img'); image.src = variant.picture; image.alt = ''; image.loading = 'lazy'; button.appendChild(image); }
-              else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
-              thumbs.appendChild(button);
-            });
-            picker.appendChild(thumbs);
-          } else {
-            const select = document.createElement('select');
-            select.className = 'variant-select';
-            select.addEventListener('click', event => event.stopPropagation());
-            group.variants.forEach(variant => {
-              const option = document.createElement('option'); option.value = String(variant.id);
-              option.textContent = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
-              select.appendChild(option);
-            });
-            select.addEventListener('change', () => updateCard(group.variants.find(item => String(item.id) === select.value) || group.variants[0]));
-            picker.appendChild(select);
-          }
+          const thumbs = document.createElement('div');
+          thumbs.className = 'variant-thumbs';
+          group.variants.forEach(variant => {
+            const button = document.createElement('button');
+            button.type = 'button'; button.className = 'variant-thumb';
+            button.dataset.variantId = String(variant.id);
+            button.title = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
+            button.setAttribute('aria-label', `Выбрать вариант: ${button.title}`);
+            button.addEventListener('click', event => { event.stopPropagation(); updateCard(variant); });
+            if (variant.picture) { const image = document.createElement('img'); image.src = variant.picture; image.alt = ''; image.loading = 'lazy'; button.appendChild(image); }
+            else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
+            thumbs.appendChild(button);
+          });
+          picker.appendChild(thumbs);
         }
         updateCard(product);
         return card;
@@ -1386,38 +1373,24 @@
           selectedVariantByGroup.set(product.group_id, String(variant.id));
           openProduct(variant, false);
         };
-        if (variants.length <= 4) {
-          const thumbs = document.createElement('div');
-          thumbs.className = 'variant-thumbs';
-          variants.forEach(variant => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = `variant-thumb${variant.id === product.id ? ' active' : ''}`;
-            button.title = variantColor(variant);
-            button.setAttribute('aria-label', `Выбрать вариант: ${variantColor(variant)}`);
-            button.setAttribute('aria-pressed', String(variant.id === product.id));
-            button.addEventListener('click', () => selectVariant(variant));
-            if (variant.picture) {
-              const image = document.createElement('img');
-              image.src = variant.picture; image.alt = ''; image.loading = 'lazy';
-              button.appendChild(image);
-            } else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
-            thumbs.appendChild(button);
-          });
-          picker.appendChild(thumbs);
-        } else {
-          const select = document.createElement('select');
-          select.className = 'variant-select';
-          variants.forEach(variant => {
-            const option = document.createElement('option');
-            option.value = String(variant.id);
-            option.textContent = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
-            option.selected = variant.id === product.id;
-            select.appendChild(option);
-          });
-          select.addEventListener('change', () => selectVariant(variants.find(item => String(item.id) === select.value) || product));
-          picker.appendChild(select);
-        }
+        const thumbs = document.createElement('div');
+        thumbs.className = 'variant-thumbs';
+        variants.forEach(variant => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = `variant-thumb${variant.id === product.id ? ' active' : ''}`;
+          button.title = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
+          button.setAttribute('aria-label', `Выбрать вариант: ${button.title}`);
+          button.setAttribute('aria-pressed', String(variant.id === product.id));
+          button.addEventListener('click', () => selectVariant(variant));
+          if (variant.picture) {
+            const image = document.createElement('img');
+            image.src = variant.picture; image.alt = ''; image.loading = 'lazy';
+            button.appendChild(image);
+          } else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
+          thumbs.appendChild(button);
+        });
+        picker.appendChild(thumbs);
         els.dialogVariants.appendChild(picker);
       }
 
