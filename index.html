@@ -402,6 +402,9 @@
     .dialog-title { margin: 18px 0 12px; font-family: Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.15; }
     .dialog-vendor { color: var(--muted); font-size: 14px; }
     .dialog-summary { margin-top: 18px; color: var(--ink); font-size: 14px; line-height: 1.6; }
+    .dialog-article { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .dialog-variants { margin-top: 18px; }
+    .dialog-variants .variant-picker { margin: 0; }
     .dialog-stock { margin-top: 18px; color: var(--green-2); font-size: 14px; font-weight: 700; }
     .dialog-stock.out { color: #9a4c42; }
     .details-toggle {
@@ -802,6 +805,8 @@
         <h2 class="dialog-title" id="dialogTitle"></h2>
         <div class="dialog-vendor" id="dialogVendor"></div>
         <div class="dialog-summary" id="dialogSummary"></div>
+        <div class="dialog-article" id="dialogArticle"></div>
+        <div class="dialog-variants" id="dialogVariants"></div>
         <div class="dialog-stock" id="dialogStock"></div>
         <div class="dialog-actions">
           <button class="details-toggle" id="detailsToggle" type="button" aria-expanded="false">Характеристики</button>
@@ -921,7 +926,7 @@
         printRows: $('printRows'), printSubtitle: $('printSubtitle'), install: $('install'),
         dialog: $('productDialog'), dialogClose: $('dialogClose'), dialogPhoto: $('dialogPhoto'),
         dialogCategory: $('dialogCategory'), dialogTitle: $('dialogTitle'), dialogVendor: $('dialogVendor'),
-        dialogSummary: $('dialogSummary'),
+        dialogSummary: $('dialogSummary'), dialogArticle: $('dialogArticle'), dialogVariants: $('dialogVariants'),
         dialogStock: $('dialogStock'), dialogPrice: $('dialogPrice'),
         detailsToggle: $('detailsToggle'), detailsClose: $('detailsClose'), dialogDetails: $('dialogDetails'),
         dialogDescription: $('dialogDescription'), detailsList: $('detailsList'),
@@ -1104,7 +1109,7 @@
         els.requestSubmit.disabled = requestItems.length === 0;
         if (activeProduct) {
           els.dialogRequestAdd.classList.toggle('added', requestHas(activeProduct.id));
-          els.dialogRequestAdd.textContent = requestHas(activeProduct.id) ? 'В корзине' : 'Добавить в корзину';
+          els.dialogRequestAdd.textContent = requestHas(activeProduct.id) ? 'В корзине' : (activeProduct.count > 0 ? 'Добавить в корзину' : 'Предзаказ');
         }
       }
 
@@ -1362,7 +1367,61 @@
         return card;
       }
 
-      function openProduct(product) {
+      function dialogVariantsFor(product) {
+        if (!product.group_id) return [product];
+        return products.filter(item => item.group_id === product.group_id);
+      }
+
+      function renderDialogVariants(product) {
+        const variants = dialogVariantsFor(product);
+        els.dialogVariants.replaceChildren();
+        if (variants.length < 2) return;
+        const picker = document.createElement('div');
+        picker.className = 'variant-picker';
+        const label = document.createElement('span');
+        label.className = 'variant-picker-label';
+        label.textContent = `${product.variant_attribute || 'Варианты'}: ${variants.length}`;
+        picker.appendChild(label);
+        const selectVariant = variant => {
+          selectedVariantByGroup.set(product.group_id, String(variant.id));
+          openProduct(variant, false);
+        };
+        if (variants.length <= 4) {
+          const thumbs = document.createElement('div');
+          thumbs.className = 'variant-thumbs';
+          variants.forEach(variant => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `variant-thumb${variant.id === product.id ? ' active' : ''}`;
+            button.title = variantColor(variant);
+            button.setAttribute('aria-label', `Выбрать вариант: ${variantColor(variant)}`);
+            button.setAttribute('aria-pressed', String(variant.id === product.id));
+            button.addEventListener('click', () => selectVariant(variant));
+            if (variant.picture) {
+              const image = document.createElement('img');
+              image.src = variant.picture; image.alt = ''; image.loading = 'lazy';
+              button.appendChild(image);
+            } else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
+            thumbs.appendChild(button);
+          });
+          picker.appendChild(thumbs);
+        } else {
+          const select = document.createElement('select');
+          select.className = 'variant-select';
+          variants.forEach(variant => {
+            const option = document.createElement('option');
+            option.value = String(variant.id);
+            option.textContent = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
+            option.selected = variant.id === product.id;
+            select.appendChild(option);
+          });
+          select.addEventListener('change', () => selectVariant(variants.find(item => String(item.id) === select.value) || product));
+          picker.appendChild(select);
+        }
+        els.dialogVariants.appendChild(picker);
+      }
+
+      function openProduct(product, openDialog = true) {
         activeProduct = product;
         els.dialogPhoto.replaceChildren();
         els.dialogPhoto.classList.remove('no-image');
@@ -1393,8 +1452,10 @@
         els.dialogTitle.textContent = product.name;
         els.dialogVendor.textContent = product.vendor;
         els.dialogSummary.textContent = productSummary(product);
+        els.dialogArticle.textContent = `Артикул: ${productArticle(product)}`;
+        renderDialogVariants(product);
         els.dialogStock.className = `dialog-stock${product.count > 0 ? '' : ' out'}`;
-        els.dialogStock.textContent = product.count > 0 ? `В наличии: ${rubles.format(product.count)} шт.` : 'Нет в наличии';
+        els.dialogStock.textContent = product.count > 0 ? `В наличии: ${rubles.format(product.count)} шт.` : 'Нет в наличии · предзаказ';
         els.dialogDescription.textContent = product.description || '';
         els.detailsList.replaceChildren();
         (product.details || []).forEach(([label, value]) => {
@@ -1414,14 +1475,14 @@
         els.detailsViewerTitle.textContent = product.name;
         els.detailsViewerPrice.textContent = `${rubles.format(product.price)} ₽`;
         els.dialogRequestAdd.classList.toggle('added', requestHas(product.id));
-        els.dialogRequestAdd.textContent = requestHas(product.id) ? 'В корзине' : 'Добавить в корзину';
+        els.dialogRequestAdd.textContent = requestHas(product.id) ? 'В корзине' : (product.count > 0 ? 'Добавить в корзину' : 'Предзаказ');
         els.dialogProductLink.href = product.url || '#';
         els.dialogProductLink.hidden = !product.url;
-        els.dialog.scrollTop = 0;
-        els.dialog.showModal();
-        requestAnimationFrame(() => {
+        if (openDialog && !els.dialog.open) {
           els.dialog.scrollTop = 0;
-        });
+          els.dialog.showModal();
+          requestAnimationFrame(() => { els.dialog.scrollTop = 0; });
+        }
       }
 
       function setDetailsExpanded(expanded) {
