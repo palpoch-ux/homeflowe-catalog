@@ -477,19 +477,30 @@
     .details-row dd { margin: 0; color: var(--ink); font-weight: 650; overflow-wrap: anywhere; }
     .dialog-price { margin-left: auto; font-size: 30px; font-weight: 750; line-height: 1; text-align: right; white-space: nowrap; }
     .image-viewer {
+      position: fixed;
+      inset: 0;
+      box-sizing: border-box;
       width: 100vw;
       max-width: none;
       height: 100dvh;
       max-height: none;
       margin: 0;
-      padding: 24px;
+      padding: 76px 32px 32px;
       overflow: hidden;
       border: 0;
       background: rgba(9, 20, 16, .94);
     }
-    .image-viewer[open] { display: grid; place-items: center; }
+    .image-viewer[open] { display: flex; align-items: center; justify-content: center; }
     .image-viewer::backdrop { background: rgba(9, 20, 16, .94); }
-    .image-viewer img { width: 100%; height: 100%; object-fit: contain; cursor: zoom-out; }
+    .image-viewer img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      cursor: zoom-out;
+    }
     .image-viewer-close { position: fixed; z-index: 2; top: 18px; right: 18px; width: 46px; height: 46px; border: 0; border-radius: 50%; color: #10251e; background: #fff; cursor: pointer; font-size: 26px; }
     .request-dialog {
       width: min(760px, calc(100vw - 28px));
@@ -684,6 +695,7 @@
       .details-viewer-body { padding: 24px 18px 44px; }
       .dialog-description { padding-bottom: 22px; font-size: 16px; line-height: 1.7; }
       .details-row { grid-template-columns: 1fr; gap: 5px; padding: 14px 0; font-size: 15px; }
+      .image-viewer { padding: 68px 14px 14px; }
       .request-dialog { width: 100vw; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; }
       .request-dialog-head { padding: 18px 68px 16px 18px; }
       .request-dialog-head h2 { font-size: 25px; }
@@ -898,8 +910,8 @@
     </div>
   </section>
 
-  <script src="catalog-data.js?v=5d18fda50a4c"></script>
-  <script src="catalog-live.js?v=5d18fda50a4c"></script>
+  <script src="catalog-data.js?v=97b43aac0f86"></script>
+  <script src="catalog-live.js?v=97b43aac0f86"></script>
   <script>
     (() => {
       const data = window.CATALOG_DATA || { products: [] };
