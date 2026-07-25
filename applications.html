@@ -30,6 +30,7 @@
       <input id="apiKey" type="password" autocomplete="off" spellcheck="false" aria-describedby="keyHelp">
       <p class="note" id="keyHelp">Страница не добавлена в меню и закрыта от поисковой индексации. Не передавайте ключ другим людям.</p>
       <button id="loadButton" type="button">Загрузить заявки</button>
+      <button id="notificationsButton" type="button">Включить уведомления</button>
       <label class="auto-check"><input id="autoCheck" type="checkbox">Обновлять журнал автоматически раз в минуту, пока эта страница открыта</label>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </section>
@@ -38,11 +39,24 @@
   <script>
     const keyInput = document.getElementById('apiKey');
     const button = document.getElementById('loadButton');
+    const notificationsButton = document.getElementById('notificationsButton');
     const status = document.getElementById('status');
     const results = document.getElementById('results');
     const autoCheck = document.getElementById('autoCheck');
     let refreshTimer = null;
     let previousFingerprint = '';
+    function renderNotificationButton() {
+      if (!('Notification' in window)) { notificationsButton.hidden = true; return; }
+      if (Notification.permission === 'granted') { notificationsButton.textContent = 'Уведомления включены'; notificationsButton.disabled = true; }
+      if (Notification.permission === 'denied') { notificationsButton.textContent = 'Уведомления заблокированы браузером'; notificationsButton.disabled = true; }
+    }
+    function notifyAboutNewSubmission(submissions) {
+      document.title = '● Новая заявка — HomeFlowe';
+      if ('Notification' in window && Notification.permission === 'granted') {
+        const latest = submissions[0]?.form_data || {};
+        new Notification('HomeFlowe — новая заявка', { body: latest.name ? `Заявка от: ${latest.name}` : 'В журнале появилась новая заявка' });
+      }
+    }
     const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
     const labelMap = { name:'Имя', phone:'Телефон', email:'Электронная почта', message:'Заявка', comment:'Комментарий' };
     function renderSubmission(item) {
@@ -64,6 +78,8 @@
         const fingerprint = submissions.map(item => `${item.submitted_at?.date || ''}|${item.form_data?.phone || ''}|${item.form_data?.email || ''}`).join('\n');
         const hasNew = Boolean(previousFingerprint && fingerprint !== previousFingerprint);
         previousFingerprint = fingerprint;
+        if (hasNew) notifyAboutNewSubmission(submissions);
+        else document.title = 'Журнал заявок — HomeFlowe';
         status.textContent = hasNew ? 'Появились новые заявки. Журнал обновлён.' : `Журнал обновлён: ${new Date().toLocaleTimeString('ru-RU')}.`;
         results.innerHTML = `<p class="summary">Всего заявок: ${submissions.length}</p>${submissions.map(renderSubmission).join('') || '<div class="submission">Заявок пока нет.</div>'}`;
       } catch (error) {
@@ -72,6 +88,11 @@
       } finally { button.disabled = false; }
     }
     button.addEventListener('click', loadSubmissions);
+    notificationsButton.addEventListener('click', async () => {
+      if (!('Notification' in window)) return;
+      await Notification.requestPermission();
+      renderNotificationButton();
+    });
     keyInput.addEventListener('keydown', event => { if (event.key === 'Enter') loadSubmissions(); });
     autoCheck.addEventListener('change', () => {
       if (refreshTimer) clearInterval(refreshTimer);
@@ -79,6 +100,7 @@
         if (keyInput.value.trim() && !button.disabled) loadSubmissions(true);
       }, 60000) : null;
     });
+    renderNotificationButton();
   </script>
 </body>
 </html>
