@@ -13,6 +13,7 @@
     label { display:block; margin-bottom:7px; font-weight:700; } input { width:min(560px,100%); padding:13px 14px; border:1px solid #aebcb4; border-radius:9px; font:inherit; }
     button { border:0; border-radius:9px; background:var(--green); color:white; padding:13px 18px; font:700 15px Arial,sans-serif; cursor:pointer; margin:12px 0 0; }
     button:disabled { opacity:.55; cursor:wait; } .note, .status { color:var(--muted); max-width:750px; } .status { margin:14px 0 0; } .error { color:#a11e1e; }
+    .auto-check { display:flex; align-items:center; gap:8px; margin:14px 0 0; color:var(--muted); font-size:14px; font-weight:400; } .auto-check input { width:17px; height:17px; padding:0; }
     #results { margin-top:28px; } .summary { color:var(--muted); margin:0 0 14px; }
     .submission { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; margin:12px 0; } .submission h2 { font:700 18px Georgia,serif; margin:0 0 6px; }
     .time { color:var(--muted); font-size:13px; margin-bottom:12px; } dl { margin:0; display:grid; grid-template-columns:minmax(115px,180px) 1fr; gap:8px 16px; } dt { color:var(--muted); } dd { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
@@ -29,6 +30,7 @@
       <input id="apiKey" type="password" autocomplete="off" spellcheck="false" aria-describedby="keyHelp">
       <p class="note" id="keyHelp">Страница не добавлена в меню и закрыта от поисковой индексации. Не передавайте ключ другим людям.</p>
       <button id="loadButton" type="button">Загрузить заявки</button>
+      <label class="auto-check"><input id="autoCheck" type="checkbox">Обновлять журнал автоматически раз в минуту, пока эта страница открыта</label>
       <p class="status" id="status" role="status" aria-live="polite"></p>
     </section>
     <section id="results" aria-live="polite"></section>
@@ -38,6 +40,9 @@
     const button = document.getElementById('loadButton');
     const status = document.getElementById('status');
     const results = document.getElementById('results');
+    const autoCheck = document.getElementById('autoCheck');
+    let refreshTimer = null;
+    let previousFingerprint = '';
     const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
     const labelMap = { name:'Имя', phone:'Телефон', email:'Электронная почта', message:'Заявка', comment:'Комментарий' };
     function renderSubmission(item) {
@@ -47,16 +52,19 @@
       const rows = keys.map(key => `<dt>${escapeHtml(labelMap[key] || key)}</dt><dd>${escapeHtml(data[key])}</dd>`).join('');
       return `<article class="submission"><h2>${escapeHtml(data.name || 'Заявка')}</h2><div class="time">${escapeHtml(time)}</div><dl>${rows || '<dd>В заявке нет данных.</dd>'}</dl></article>`;
     }
-    async function loadSubmissions() {
+    async function loadSubmissions(background = false) {
       const key = keyInput.value.trim();
       if (!key) { status.textContent = 'Введите API-ключ из письма FormSubmit.'; status.className = 'status error'; return; }
-      button.disabled = true; status.className = 'status'; status.textContent = 'Загружаем заявки…'; results.innerHTML = '';
+      button.disabled = true; status.className = 'status'; if (!background) { status.textContent = 'Загружаем заявки…'; results.innerHTML = ''; }
       try {
         const response = await fetch(`https://formsubmit.co/api/get-submissions/${encodeURIComponent(key)}`, { headers:{ Accept:'application/json' }, cache:'no-store' });
         const payload = await response.json();
         if (!response.ok || !payload.success) throw new Error(payload.message || `Ошибка ${response.status}`);
         const submissions = Array.isArray(payload.submissions) ? payload.submissions : [];
-        status.textContent = 'Заявки загружены.';
+        const fingerprint = submissions.map(item => `${item.submitted_at?.date || ''}|${item.form_data?.phone || ''}|${item.form_data?.email || ''}`).join('\n');
+        const hasNew = Boolean(previousFingerprint && fingerprint !== previousFingerprint);
+        previousFingerprint = fingerprint;
+        status.textContent = hasNew ? 'Появились новые заявки. Журнал обновлён.' : `Журнал обновлён: ${new Date().toLocaleTimeString('ru-RU')}.`;
         results.innerHTML = `<p class="summary">Всего заявок: ${submissions.length}</p>${submissions.map(renderSubmission).join('') || '<div class="submission">Заявок пока нет.</div>'}`;
       } catch (error) {
         status.textContent = `Не удалось загрузить заявки: ${error.message}. Проверьте ключ и интернет.`;
@@ -65,6 +73,12 @@
     }
     button.addEventListener('click', loadSubmissions);
     keyInput.addEventListener('keydown', event => { if (event.key === 'Enter') loadSubmissions(); });
+    autoCheck.addEventListener('change', () => {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = autoCheck.checked ? setInterval(() => {
+        if (keyInput.value.trim() && !button.disabled) loadSubmissions(true);
+      }, 60000) : null;
+    });
   </script>
 </body>
 </html>
