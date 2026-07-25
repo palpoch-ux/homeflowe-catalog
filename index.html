@@ -576,6 +576,7 @@
     .request-field textarea { min-height: 92px; resize: vertical; }
     .request-agree { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 9px; color: var(--muted); font-size: 12px; line-height: 1.45; }
     .request-agree input { margin-top: 2px; }
+    .request-draft-note { grid-column: 1 / -1; margin: -5px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
     .request-submit {
       grid-column: 1 / -1;
       min-height: 50px;
@@ -687,6 +688,14 @@
       .footer-head, .requisites { grid-template-columns: 1fr; gap: 26px; }
       .footer-bottom { flex-direction: column; }
       .dialog-content { grid-template-columns: 1fr; }
+      .product-dialog {
+        width: 100vw;
+        max-width: 100vw;
+        height: 100dvh;
+        max-height: 100dvh;
+        margin: 0;
+        border-radius: 0;
+      }
       .dialog-photo { width: 100%; height: min(360px, 40dvh); min-height: 0; max-height: none; padding: 24px; }
       .dialog-photo img { position: absolute; inset: 24px; width: calc(100% - 48px); height: calc(100% - 48px); max-width: none; max-height: none; object-fit: contain; }
       .dialog-info { min-height: 260px; padding: 28px; }
@@ -879,11 +888,11 @@
         </div>
         <div class="request-field full">
           <label for="requestEmail">Электронная почта</label>
-          <input id="requestEmail" type="email" autocomplete="email">
+          <input id="requestEmail" name="email" type="email" autocomplete="email">
         </div>
         <div class="request-field full">
           <label for="requestComment">Комментарий</label>
-          <textarea id="requestComment" placeholder="Например, удобное время для звонка"></textarea>
+          <textarea id="requestComment" name="comment" placeholder="Например, удобное время для звонка"></textarea>
         </div>
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" hidden>
         <input type="hidden" name="_subject" value="Заявка из каталога бытовой техники HomeFlowe">
@@ -893,6 +902,7 @@
           <input type="checkbox" name="agree" value="1" required>
           <span>Согласен на обработку персональных данных для связи по заявке.</span>
         </label>
+        <p class="request-draft-note">После согласия черновик заявки сохраняется только на этом устройстве до успешной отправки.</p>
         <button class="request-submit" id="requestSubmit" type="submit">Отправить заявку</button>
         <div class="request-status" id="requestStatus" role="status" aria-live="polite"></div>
       </form>
@@ -1006,6 +1016,7 @@
         container.append(kind, note);
       };
       const requestStorageKey = 'homeflowe-catalog-request-v1';
+      const requestDraftStorageKey = 'homeflowe-catalog-request-draft-v1';
       const productsById = new Map(products.map(product => [String(product.id), product]));
       const selectedVariantByGroup = new Map();
       let activeProduct = null;
@@ -1037,6 +1048,40 @@
       function saveRequest() {
         localStorage.setItem(requestStorageKey, JSON.stringify(requestItems));
         renderRequest();
+      }
+
+      function saveRequestDraft() {
+        const agree = els.requestForm.elements.agree;
+        if (!agree || !agree.checked) {
+          localStorage.removeItem(requestDraftStorageKey);
+          return;
+        }
+        const draft = {
+          name: document.getElementById('requestName').value.trim(),
+          phone: document.getElementById('requestPhone').value.trim(),
+          email: document.getElementById('requestEmail').value.trim(),
+          comment: els.requestComment.value.trim(),
+          agree: true
+        };
+        localStorage.setItem(requestDraftStorageKey, JSON.stringify(draft));
+      }
+
+      function restoreRequestDraft() {
+        try {
+          const draft = JSON.parse(localStorage.getItem(requestDraftStorageKey) || 'null');
+          if (!draft || !draft.agree) return;
+          document.getElementById('requestName').value = draft.name || '';
+          document.getElementById('requestPhone').value = draft.phone || '';
+          document.getElementById('requestEmail').value = draft.email || '';
+          els.requestComment.value = draft.comment || '';
+          els.requestForm.elements.agree.checked = true;
+        } catch (_) {
+          localStorage.removeItem(requestDraftStorageKey);
+        }
+      }
+
+      function clearRequestDraft() {
+        localStorage.removeItem(requestDraftStorageKey);
       }
 
       function requestHas(productId) {
@@ -1608,12 +1653,16 @@
       });
       els.requestOpen.addEventListener('click', () => {
         renderRequest();
+        restoreRequestDraft();
         els.requestStatus.textContent = '';
         els.requestDialog.showModal();
       });
       els.requestClose.addEventListener('click', () => els.requestDialog.close());
       els.requestDialog.addEventListener('click', event => {
         if (event.target === els.requestDialog) els.requestDialog.close();
+      });
+      ['input', 'change'].forEach(type => {
+        els.requestForm.addEventListener(type, saveRequestDraft);
       });
       els.requestForm.addEventListener('submit', async event => {
         event.preventDefault();
@@ -1677,12 +1726,13 @@
           }
           els.requestStatus.textContent = 'Заявка отправлена. Менеджер свяжется с вами для подтверждения наличия и стоимости.';
           els.requestForm.reset();
+          clearRequestDraft();
           requestItems = [];
           saveRequest();
           render();
         } catch (error) {
           els.requestSubmit.disabled = false;
-          els.requestStatus.textContent = 'Не удалось подтвердить отправку. Проверьте интернет и повторите попытку.';
+          els.requestStatus.textContent = 'Не удалось подтвердить отправку. Проверьте интернет и повторите попытку: черновик сохранён на этом устройстве.';
         } finally {
           clearTimeout(timeout);
         }
