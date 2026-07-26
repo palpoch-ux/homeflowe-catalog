@@ -631,6 +631,18 @@
     @media (max-width: 760px) {
       body.filters-open { overflow: hidden; overscroll-behavior: none; }
       .topbar-inner { min-height: 66px; padding: 0 18px; gap: 10px; }
+      .topbar-inner.install-available {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .topbar-inner.install-available .install-btn {
+        order: 3;
+        width: 100%;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+      }
       .top-links a[href="#requisites"] { display: none; }
       .top-links { min-width: 0; }
       .top-links { gap: 8px; }
@@ -774,8 +786,8 @@
         <a href="https://homeflowe.ru/">На сайт</a>
         <a href="#requisites">Реквизиты</a>
         <button class="request-nav" id="requestOpen" type="button">Корзина <span class="request-count" id="requestCount">0</span></button>
-        <button class="install-btn" id="install" type="button">Установить</button>
       </nav>
+      <button class="install-btn" id="install" type="button">Установить каталог</button>
     </div>
   </header>
 
@@ -1763,7 +1775,8 @@
       window.addEventListener('beforeinstallprompt', event => {
         event.preventDefault();
         installPrompt = event;
-        els.install.style.display = 'inline-block';
+        els.install.style.display = 'inline-flex';
+        els.install.parentElement.classList.add('install-available');
       });
       els.install.addEventListener('click', async () => {
         if (!installPrompt) return;
@@ -1771,6 +1784,7 @@
         await installPrompt.userChoice;
         installPrompt = null;
         els.install.style.display = 'none';
+        els.install.parentElement.classList.remove('install-available');
       });
       if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
