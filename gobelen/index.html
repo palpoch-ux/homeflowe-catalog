@@ -634,8 +634,7 @@
       .print-table th { padding: 2.5mm 2mm; border-bottom: 1.5px solid #183f32; text-align: left; font-size: 7pt; letter-spacing: .06em; text-transform: uppercase; }
       .print-table td { padding: 2.4mm 2mm; border-bottom: 1px solid #ddd; vertical-align: top; }
       .print-table th:first-child, .print-table td:first-child { width: 9mm; color: #666; }
-      .print-table th:nth-last-child(2), .print-table td:nth-last-child(2) { width: 24mm; white-space: nowrap; }
-      .print-table th:last-child, .print-table td:last-child { width: 32mm; text-align: right; white-space: nowrap; font-weight: 700; }
+      .print-table th:nth-child(3), .print-table td:nth-child(3) { width: 28mm; white-space: nowrap; }
       .print-product { font-weight: 700; }
       .print-meta { margin-top: 1mm; color: #666; font-size: 7.5pt; }
       .print-requisites { margin-top: 8mm; padding-top: 5mm; border-top: 1.5px solid #183f32; display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 8mm; font-size: 7.5pt; line-height: 1.45; break-inside: avoid; }
@@ -982,7 +981,7 @@
     <h1 class="print-title">HomeFlowe · Гобеленовые ткани</h1>
     <div class="print-subtitle" id="printSubtitle"></div>
     <table class="print-table">
-      <thead><tr><th>№</th><th>Товар</th><th>Наличие</th><th>Цена HomeFlowe</th></tr></thead>
+      <thead><tr><th>№</th><th>Товар</th><th>Наличие</th></tr></thead>
       <tbody id="printRows"></tbody>
     </table>
     <div class="print-requisites">
@@ -1792,9 +1791,7 @@
           item.append(name, meta);
           const stock = document.createElement('td');
           stock.textContent = product.count > 0 ? `${rubles.format(product.count)} шт.` : 'Нет';
-          const price = document.createElement('td');
-          price.textContent = `${rubles.format(product.price)} ₽`;
-          row.append(number, item, stock, price);
+          row.append(number, item, stock);
           fragment.appendChild(row);
         });
         els.printRows.replaceChildren(fragment);
