@@ -22,25 +22,16 @@
       --shadow: 0 18px 50px rgba(22, 38, 30, .08);
     }
     * { box-sizing: border-box; }
-    html {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-      overflow-x: clip;
-      scroll-behavior: smooth;
-    }
+    html { max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
     body {
-      width: 100%;
-      max-width: 100%;
       margin: 0;
-      overflow-x: hidden;
-      overflow-x: clip;
       color: var(--ink);
       background: var(--paper);
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: hidden;
     }
-    img, video, svg, canvas { max-width: 100%; }
     button, input, select, textarea { font: inherit; }
     a { color: inherit; }
     .topbar {
@@ -53,7 +44,6 @@
       backdrop-filter: blur(12px);
     }
     .topbar-inner {
-      width: 100%;
       max-width: 1440px;
       margin: 0 auto;
       min-height: 76px;
@@ -77,6 +67,7 @@
     .top-links { display: flex; align-items: center; gap: 26px; font-size: 14px; }
     .top-links a { color: rgba(255,255,255,.82); text-decoration: none; }
     .top-links a:hover { color: #fff; }
+    .header-phone { font-weight: 750; white-space: nowrap; }
     .request-nav {
       min-height: 40px;
       padding: 0 14px;
@@ -117,7 +108,6 @@
         linear-gradient(135deg, #183f32 0%, #214d3d 58%, #2a5948 100%);
     }
     .hero-inner {
-      width: 100%;
       max-width: 1440px;
       margin: 0 auto;
       padding: 72px 32px 82px;
@@ -156,7 +146,7 @@
     }
     .hero-stat strong { display: block; font-family: Georgia, serif; font-size: 54px; font-weight: 400; line-height: 1; }
     .hero-stat span { display: block; margin-top: 10px; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.45; }
-    main { width: 100%; max-width: 1440px; margin: 0 auto; padding: 34px 32px 90px; }
+    main { max-width: 1440px; margin: 0 auto; padding: 34px 32px 90px; }
     .controls {
       position: sticky;
       z-index: 10;
@@ -241,8 +231,6 @@
     }
     .category-group-title:first-child { margin-top: 0; }
     .category-group-title h2 {
-      min-width: 0;
-      overflow-wrap: anywhere;
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(25px, 3vw, 36px);
@@ -370,7 +358,7 @@
     .page-btn:hover, .page-btn.active { border-color: var(--green); color: #fff; background: var(--green); }
     .page-btn:disabled { opacity: .35; cursor: default; }
     footer { color: rgba(255,255,255,.76); background: #122d24; }
-    .footer-inner { width: 100%; max-width: 1440px; margin: 0 auto; padding: 58px 32px 34px; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; padding: 58px 32px 34px; }
     .footer-head { display: grid; grid-template-columns: 1fr 2fr; gap: 70px; padding-bottom: 42px; }
     .footer-brand { color: #fff; font-family: Georgia, serif; font-size: 34px; }
     .footer-brand span { display: block; margin-top: 10px; color: rgba(255,255,255,.56); font-family: Inter, sans-serif; font-size: 13px; line-height: 1.5; }
@@ -461,8 +449,7 @@
       line-height: 1;
     }
     .details-viewer {
-      inset: 0;
-      width: 100%;
+      width: 100vw;
       max-width: none;
       height: 100dvh;
       max-height: none;
@@ -486,7 +473,7 @@
       background: #fff;
       box-shadow: 0 5px 22px rgba(16, 40, 31, .07);
     }
-    .details-viewer-heading { min-width: 0; flex: 1 1 auto; }
+    .details-viewer-heading { min-width: 0; }
     .details-viewer-heading span { display: block; color: var(--green-2); font-size: 11px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
     .details-viewer-heading strong { display: block; margin-top: 6px; overflow: hidden; font-family: Georgia, serif; font-size: 25px; font-weight: 400; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
     .details-viewer-price { margin-left: auto; font-size: 28px; font-weight: 750; white-space: nowrap; }
@@ -502,7 +489,7 @@
       position: fixed;
       inset: 0;
       box-sizing: border-box;
-      width: 100%;
+      width: 100vw;
       max-width: none;
       height: 100dvh;
       max-height: none;
@@ -629,23 +616,15 @@
       .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
-      body.filters-open { overflow: hidden; overscroll-behavior: none; }
-      .topbar-inner { min-height: 66px; padding: 0 18px; gap: 10px; }
-      .topbar-inner.install-available {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        flex-wrap: wrap;
-      }
-      .topbar-inner.install-available .install-btn {
-        order: 3;
-        width: 100%;
-        min-height: 42px;
-        align-items: center;
-        justify-content: center;
-      }
+      body.filters-open { overflow: hidden; }
+      .topbar-inner { min-height: 66px; padding: 0 18px; }
       .top-links a[href="#requisites"] { display: none; }
-      .top-links { min-width: 0; }
       .top-links { gap: 8px; }
+      .topbar-inner { padding: 8px 14px 10px; flex-wrap: wrap; gap: 5px; }
+      .topbar-inner, .top-links, main, .grid { min-width: 0; max-width: 100%; }
+      .top-links { width: 100%; justify-content: space-between; gap: 6px; font-size: 12px; flex-wrap: wrap; }
+      .top-links > * { min-width: 0; }
+      .header-phone { font-size: 13px; }
       .brand { gap: 7px; font-size: 17px; }
       .brand-logo { width: 48px; height: 34px; }
       .request-nav { min-height: 38px; padding: 0 10px; }
@@ -657,8 +636,6 @@
         position: fixed;
         z-index: 52;
         inset: auto 12px 12px;
-        width: calc(100% - 24px);
-        max-width: calc(100% - 24px);
         top: auto;
         max-height: calc(100dvh - 24px);
         margin: 0;
@@ -688,7 +665,6 @@
         position: fixed;
         z-index: 50;
         right: 16px;
-        max-width: calc(100% - 32px);
         bottom: max(16px, env(safe-area-inset-bottom));
         min-height: 52px;
         padding: 0 20px;
@@ -720,9 +696,8 @@
       .footer-bottom { flex-direction: column; }
       .dialog-content { grid-template-columns: 1fr; }
       .product-dialog {
-        inset: 0;
-        width: 100%;
-        max-width: 100%;
+        width: 100vw;
+        max-width: 100vw;
         height: 100dvh;
         max-height: 100dvh;
         margin: 0;
@@ -741,7 +716,7 @@
       .dialog-description { padding-bottom: 22px; font-size: 16px; line-height: 1.7; }
       .details-row { grid-template-columns: 1fr; gap: 5px; padding: 14px 0; font-size: 15px; }
       .image-viewer { padding: 68px 14px 14px; }
-      .request-dialog { inset: 0; width: 100%; max-width: 100%; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; }
+      .request-dialog { width: 100vw; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; }
       .request-dialog-head { padding: 18px 68px 16px 18px; }
       .request-dialog-head h2 { font-size: 25px; }
       .request-body { padding: 18px; }
@@ -749,13 +724,9 @@
       .request-field.full, .request-agree, .request-submit, .request-status { grid-column: 1; }
     }
     @media (max-width: 430px) {
-      .top-links > a { display: none; }
-      .brand { min-width: 0; font-size: 18px; }
+      .brand { font-size: 20px; }
       .top-links { gap: 10px; }
       h1 { font-size: 43px; }
-      .result-row { align-items: stretch; flex-direction: column; gap: 10px; }
-      .result-actions { width: 100%; justify-content: space-between; gap: 12px; }
-      .result-actions > * { min-width: 0; }
       .grid { grid-template-columns: 1fr; }
       .photo { height: 250px; }
       .category-group-title { margin-top: 16px; padding: 15px 2px 10px; }
@@ -764,14 +735,9 @@
       .dialog-info { padding: 24px 20px; }
       .details-toggle { padding: 10px 12px; font-size: 12px; }
       .dialog-price { font-size: 20px; }
-      .details-viewer-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
-      .details-viewer-price { grid-column: 1 / -1; margin-left: 0; }
-      .details-close { grid-column: 2; grid-row: 1; }
-      .request-summary { align-items: flex-start; flex-direction: column; gap: 8px; }
       .request-item { grid-template-columns: 58px minmax(0, 1fr); }
       .request-item-photo { width: 58px; height: 58px; }
       .request-item-price { grid-column: 2; }
-      .request-item-name, .request-item-meta { overflow-wrap: anywhere; }
     }
   </style>
 </head>
@@ -784,11 +750,11 @@
       </a>
       <nav class="top-links" aria-label="Основная навигация">
         <a href="https://homeflowe.ru/">На сайт</a>
-        <a href="/gobelen/">Гобеленовые ткани</a>
+        <a class="header-phone" href="tel:+79162216780">+7 916 221-67-80</a>
         <a href="#requisites">Реквизиты</a>
         <button class="request-nav" id="requestOpen" type="button">Корзина <span class="request-count" id="requestCount">0</span></button>
+        <button class="install-btn" id="install" type="button">Установить</button>
       </nav>
-      <button class="install-btn" id="install" type="button">Установить каталог</button>
     </div>
   </header>
 
@@ -965,8 +931,8 @@
     </div>
   </section>
 
-  <script src="catalog-data.js?v=b6f20346e07c"></script>
-  <script src="catalog-live.js?v=b6f20346e07c"></script>
+  <script src="catalog-data.js"></script>
+  <script src="catalog-live.js"></script>
   <script>
     (() => {
       const data = window.CATALOG_DATA || { products: [] };
@@ -1776,8 +1742,7 @@
       window.addEventListener('beforeinstallprompt', event => {
         event.preventDefault();
         installPrompt = event;
-        els.install.style.display = 'inline-flex';
-        els.install.parentElement.classList.add('install-available');
+        els.install.style.display = 'inline-block';
       });
       els.install.addEventListener('click', async () => {
         if (!installPrompt) return;
@@ -1785,7 +1750,6 @@
         await installPrompt.userChoice;
         installPrompt = null;
         els.install.style.display = 'none';
-        els.install.parentElement.classList.remove('install-available');
       });
       if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
         navigator.serviceWorker.register('./sw.js').catch(() => {});
