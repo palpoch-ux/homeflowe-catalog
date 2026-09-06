@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://catalog.homeflowe.ru/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/gobelen/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/sharp-sjxe59pmbe-80/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-ksi-17780-cvnf-96/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-kfs-17935-cfnf-97/</loc></url>
+  <url><loc>https://catalog.homeflowe.ru/product/graude-ikg-180-1-142/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-ksi-8185-175/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-ksi-8181-176/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/haier-hb18fgwaaaru-331/</loc></url>
@@ -368,6 +368,7 @@
   <url><loc>https://catalog.homeflowe.ru/product/asko-hg8313bgb1-4484/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/asko-hg8640bgb1-4485/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/asko-hg8843bgb1-4486/</loc></url>
+  <url><loc>https://catalog.homeflowe.ru/product/brandt-bpv6420b-4487/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/smeg-sf6381x-4582/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-ogg-771-cfn-4592/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-okb-760-fx-4595/</loc></url>
@@ -983,7 +984,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/smeg-cpv615nr-11767/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersbusch-csv-6800-0-11779/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-comfortboard-black-cover-beige-11914/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/asko-hdb1153t-11916/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-prestigeboard-11933/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-tripack-water-filter-cartridges-smart-11960/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-comfortboard-black-cover-glasses-11961/</loc></url>
@@ -1675,7 +1675,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-dry-03-pro-do-20292/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-kdi-45898-i-20293/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-dry-03-pro-wh-20294/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/asko-ocs8487b-736347-20296/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-daisen-86-bl-20297/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-daisen-44-in-20300/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-akisame-59-gm-20301/</loc></url>
@@ -2092,16 +2091,8 @@
   <url><loc>https://catalog.homeflowe.ru/product/jet-air-aurora-lx-wh-f-50-22627/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/jet-air-aurora-lx-grx-f-50-22628/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/elica-kit0121005-22642/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc50ecw02-22676/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc60eew03-22680/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc60ecw04-22681/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc60gew03-22682/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec55cw08d-22691/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec511cw09td-22695/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec511cs09td-22696/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-bath-401-belyi-22703/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-bath-401-nerzhaveyuschaya-stal-22705/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc60ecgr05-22709/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/gorenje-bm201ag1bg-22713/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-wk-1-a-22716/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/smeg-se495etd-22747/</loc></url>
@@ -2130,7 +2121,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-tarento-83-u-i-wh-23554/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/delonghi-elettra-4b0p-cr-23586/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-francesca-60-23590/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec511cw10td-23593/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-kfp-3-dlya-inna-55-slimlux-iv-60-23636/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-tonami-pl-23643/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/jet-air-senti-wh-f-60-23644/</loc></url>
@@ -2186,7 +2176,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/korting-kdi-45017-24721/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/elica-nikolatesla-fit-3z-bl-a-60-24755/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-rffi-184-bg-24777/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec65cw07-24802/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-tadzava-75-u-i-in-ultra-15-24806/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-tadzava-44-u-i-in-ultra-15-24814/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-vortex-gb-24821/</loc></url>
@@ -2208,7 +2197,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-cover-universal-light-grey-packaged-25357/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-cover-universal-dark-grey-packaged-25364/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/laurastar-cover-universal-black-smart-packaged-160-7801-800-25365/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mgc50gew01d-25381/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/smeg-so6101s2b3-25542/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-breeze-90-nerzhaveika-25550/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-cvi594sf2bg-25552/</loc></url>
@@ -2275,8 +2263,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-intro-60-white-26362/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-f-605-w-26365/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-ecs-632-f-26367/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec611cw09td-26391/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec611cs10td-26392/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-tadzava-75-u-i-in-26416/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-okb-1310-gscw-26468/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/elica-fold-bl-mat-a-72-26568/</loc></url>
@@ -2306,7 +2292,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/korting-okb-1321-gnbx-26927/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-okb-1321-gscw-26930/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-cvce594smdbk-26985/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec55cw07-26993/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-kmi-928-gw-27097/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-hmw-634-b-27116/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/franke-fsm-25-mw-xs-27131/</loc></url>
@@ -2318,7 +2303,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/elica-boxin-dry-ix-a-120-27336/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/franke-fmy-45-cm-xs-27372/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/v-zug-cs6t-23032-platina-27375/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec611cw10td-27380/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mfwd14106s04-27437/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/smeg-mff11pbeu-27444/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-gs-4557-27453/</loc></url>
@@ -2381,7 +2365,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-koriyama-sb-bn-28424/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mf-a7021rd-28442/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/korting-kmi-928-gn-28470/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec55cs08d-28535/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/omoikiri-bosen-61-wh-28536/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-egs-600-28556/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/elica-tamaya-rail-anbr-a-60-28565/</loc></url>
@@ -2398,8 +2381,6 @@
   <url><loc>https://catalog.homeflowe.ru/product/midea-mg697tgw-28896/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-kfp-2-inbox-54-73-28913/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-eghg-43-33cbg-g-28923/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec67cw08td-28924/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/maunfeld-mec611cs09td-28928/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/maunfeld-bath-plus-402-nerzhaveyuschaya-stal-28964/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/smeg-cpr115b3-28972/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersbusch-di-3800-0-w-28973/</loc></url>
@@ -2963,15 +2944,12 @@
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-pf-32l4-nfw-32468/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-6245-b-32472/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-4535-w-32474/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/hiberg-vtmf-90100-b-32488/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-9155-b-32489/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vmf-8191-b-32496/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-9155-y-32497/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-7155-b-32510/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/hiberg-vmf-6191-w-32515/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-i46-1030-32535/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/kuppersberg-ics-604-32537/</loc></url>
-  <url><loc>https://catalog.homeflowe.ru/product/hiberg-vmf-6191-b-32542/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-6245-w-32543/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-pf-25-nfg-32548/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/product/hiberg-vm-7155-y-32557/</loc></url>
@@ -8053,6 +8031,7 @@
   <url><loc>https://catalog.homeflowe.ru/brand/bomann/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/brand/bone-crusher/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/brand/bosch/</loc></url>
+  <url><loc>https://catalog.homeflowe.ru/brand/brandt/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/brand/caso/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/brand/casarte/</loc></url>
   <url><loc>https://catalog.homeflowe.ru/brand/climadiff/</loc></url>

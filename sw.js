@@ -1,4 +1,4 @@
-const CACHE = 'homeflowe-catalog-v7';
+const CACHE = 'homeflowe-catalog-v5';
 // Catalogue data is deliberately excluded: it is versioned by the build and
 // must always be requested from the network when a new site version opens.
 const SHELL = ['./', './index.html', './manifest.webmanifest', './images/icon-192.png', './images/icon-512.png'];
