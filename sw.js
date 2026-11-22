@@ -1,7 +1,7 @@
-const CACHE = 'homeflowe-catalog-v5';
+const CACHE = 'homeflowe-catalog-photos-20261122';
 // Catalogue data is deliberately excluded: it is versioned by the build and
 // must always be requested from the network when a new site version opens.
-const SHELL = ['./', './index.html', './manifest.webmanifest', './images/icon-192.png', './images/icon-512.png'];
+const SHELL = ['./', './index.html', './manifest.webmanifest', '/catalog-photo-map-dd4324d97ae6.js', '/catalog-photos.js?v=20261122', './images/icon-192.png', './images/icon-512.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -9,7 +9,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE && (key.startsWith('homeflowe-catalog-photos-') || /^homeflowe-catalog-v[0-9]+$/.test(key))).map(key => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });

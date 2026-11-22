@@ -933,6 +933,9 @@
     </div>
   </section>
 
+  <!-- HF-PHOTO-DELIVERY -->
+  <script src="/catalog-photo-map-dd4324d97ae6.js"></script>
+  <script src="/catalog-photos.js?v=20261122"></script>
   <script src="catalog-data.js?v=7dc9e060f412"></script>
   <script src="catalog-live.js?v=7dc9e060f412"></script>
   <script>
@@ -1093,7 +1096,7 @@
           photo.className = 'request-item-photo';
           if (product.picture) {
             const image = document.createElement('img');
-            image.src = product.picture;
+            HFCatalogPhotos.configure(image, product.picture, '72px');
             image.alt = '';
             image.loading = 'lazy';
             image.addEventListener('error', () => image.remove(), { once: true });
@@ -1327,7 +1330,7 @@
           photo.classList.remove('no-image');
           if (variant.picture) {
             const image = document.createElement('img');
-            image.src = variant.picture;
+            HFCatalogPhotos.configure(image, variant.picture, '(max-width: 760px) 48vw, (max-width: 1100px) 32vw, 285px');
             image.alt = variant.name;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -1379,7 +1382,7 @@
             button.title = `${variantColor(variant)}${variant.count > 0 ? '' : ' — предзаказ'}`;
             button.setAttribute('aria-label', `Выбрать вариант: ${button.title}`);
             button.addEventListener('click', event => { event.stopPropagation(); updateCard(variant); });
-            if (variant.picture) { const image = document.createElement('img'); image.src = variant.picture; image.alt = ''; image.loading = 'lazy'; button.appendChild(image); }
+            if (variant.picture) { const image = document.createElement('img'); HFCatalogPhotos.configure(image, variant.picture, '54px'); image.alt = ''; button.appendChild(image); }
             else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
             thumbs.appendChild(button);
           });
@@ -1418,9 +1421,9 @@
           button.setAttribute('aria-label', `Выбрать вариант: ${button.title}`);
           button.setAttribute('aria-pressed', String(variant.id === product.id));
           button.addEventListener('click', () => selectVariant(variant));
-          if (variant.picture) {
+          if (variant.picture && variant.id === product.id) {
             const image = document.createElement('img');
-            image.src = variant.picture; image.alt = ''; image.loading = 'lazy';
+            HFCatalogPhotos.configure(image, variant.picture, '54px'); image.alt = '';
             button.appendChild(image);
           } else button.textContent = variantColor(variant).slice(0, 1).toUpperCase();
           thumbs.appendChild(button);
@@ -1435,7 +1438,7 @@
         els.dialogPhoto.classList.remove('no-image');
         if (product.picture) {
           const image = document.createElement('img');
-          image.src = product.picture;
+          HFCatalogPhotos.configure(image, product.picture, '(max-width: 760px) calc(100vw - 44px), 540px', false);
           image.alt = product.name;
           image.addEventListener('error', () => {
             image.remove();

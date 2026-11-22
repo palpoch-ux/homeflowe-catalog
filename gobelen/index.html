@@ -992,6 +992,9 @@
     </div>
   </section>
 
+  <!-- HF-PHOTO-DELIVERY -->
+  <script src="/catalog-photo-map-dd4324d97ae6.js"></script>
+  <script src="/catalog-photos.js?v=20261122"></script>
   <script src="catalog-data.js"></script>
   <script src="catalog-live.js"></script>
   <script>
@@ -1155,7 +1158,7 @@
           photo.className = 'request-item-photo';
           if (product.picture) {
             const image = document.createElement('img');
-            image.src = product.picture;
+            HFCatalogPhotos.configure(image, product.picture, '72px');
             image.alt = '';
             image.loading = 'lazy';
             image.addEventListener('error', () => image.remove(), { once: true });
@@ -1404,7 +1407,7 @@
           photo.classList.remove('no-image');
           if (variant.picture) {
             const image = document.createElement('img');
-            image.src = variant.picture;
+            HFCatalogPhotos.configure(image, variant.picture, '(max-width: 760px) 48vw, (max-width: 1100px) 32vw, 285px');
             image.alt = variant.name;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -1482,7 +1485,13 @@
         main.className = 'dialog-main-photo';
         const image = document.createElement('img');
         const setMain = (picture, selectedButton) => {
-          image.src = picture;
+          HFCatalogPhotos.configure(image, picture, '(max-width: 760px) calc(100vw - 44px), 540px', false);
+          if (selectedButton && !selectedButton.querySelector('img')) {
+            const miniature = document.createElement('img');
+            miniature.alt = '';
+            HFCatalogPhotos.configure(miniature, picture, '54px');
+            selectedButton.replaceChildren(miniature);
+          }
           image.alt = product.name;
           image.dataset.picture = picture;
           els.dialogPhoto.querySelectorAll('.photo-gallery-thumb').forEach(button => {
@@ -1512,11 +1521,7 @@
             button.type = 'button';
             button.className = 'photo-gallery-thumb';
             button.setAttribute('aria-label', `Показать фотографию ${index + 1} из ${pictures.length}`);
-            const thumb = document.createElement('img');
-            thumb.src = picture;
-            thumb.alt = '';
-            thumb.loading = 'lazy';
-            button.appendChild(thumb);
+            button.textContent = String(index + 1);
             button.addEventListener('click', () => setMain(picture, button));
             if (!firstButton) firstButton = button;
             thumbs.appendChild(button);
